@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Equipment</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('equipment')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <div class="form-card">
+
+        <h2 th:text="${equipment.id == null ? 'Add Equipment' : 'Edit Equipment'}"></h2>
+
+        <form th:action="@{/equipment/save}"
+              th:object="${equipment}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+
+                <label>Equipment ID</label>
+
+                <input type="text"
+                       th:field="*{equipmentId}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Equipment Name</label>
+
+                <input type="text"
+                       th:field="*{equipmentName}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <select th:field="*{category}">
+                    <option value="Cardio">Cardio</option>
+                    <option value="Strength">Strength</option>
+                    <option value="Free Weights">Free Weights</option>
+                    <option value="Machines">Machines</option>
+                    <option value="Accessories">Accessories</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Brand</label>
+
+                <input type="text"
+                       th:field="*{brand}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Quantity</label>
+
+                <input type="number"
+                       min="1"
+                       th:field="*{quantity}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Purchase Date</label>
+
+                <input type="date"
+                       th:field="*{purchaseDate}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Condition</label>
+
+                <select th:field="*{equipmentCondition}">
+                    <option value="Excellent">Excellent</option>
+                    <option value="Good">Good</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Damaged">Damaged</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select th:field="*{status}">
+                    <option value="Available">Available</option>
+                    <option value="Under Maintenance">Under Maintenance</option>
+                    <option value="Retired">Retired</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Notes</label>
+
+                <textarea th:field="*{notes}"
+                          rows="4"></textarea>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button class="btn btn-success">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Equipment
+
+                </button>
+
+                <a th:href="@{/equipment}"
+                   class="btn btn-danger">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

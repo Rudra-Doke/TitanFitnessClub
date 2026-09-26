@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Titan Fitness Club</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #1c1c1c;
+            padding: 35px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #d4af37;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #292929;
+            color: white;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .amount {
+            margin-top: 10px;
+            padding: 15px;
+            background: #292929;
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 7px;
+            background: #d4af37;
+            color: #111;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #f0c94a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Join Titan Fitness Club</h1>
+
+    <form th:action="@{/register}" method="post">
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="fullName" required>
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required>
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPassword" required>
+        </div>
+
+        <div class="form-group">
+            <label>Age</label>
+            <input type="number" name="age" min="1" required>
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <select name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Fitness Goal</label>
+            <select name="fitnessGoal" required>
+                <option value="">Select Goal</option>
+                <option value="Weight Loss">Weight Loss</option>
+                <option value="Muscle Gain">Muscle Gain</option>
+                <option value="General Fitness">General Fitness</option>
+                <option value="Bodybuilding">Bodybuilding</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Membership Plan</label>
+
+            <select name="membershipPlan" id="membershipPlan" required>
+                <option value="">Select Membership Plan</option>
+
+                <option th:each="plan : ${plans}"
+                        th:value="${plan.id}"
+                        th:text="${plan.planName}"
+                        th:attr="data-price=${plan.price}">
+                </option>
+            </select>
+
+            <div class="amount">
+                Amount: ₹<span id="amount">0</span>
+            </div>
+        </div>
+        <button type="submit">JOIN TITAN FITNESS CLUB</button>
+
+    </form>
+
+</div>
+
+<script>
+    const membershipPlan = document.getElementById("membershipPlan");
+    const amount = document.getElementById("amount");
+
+    membershipPlan.addEventListener("change", function () {
+        const selectedOption = this.options[this.selectedIndex];
+        const price = selectedOption.getAttribute("data-price");
+
+        amount.textContent = price ? price : "0";
+    });
+</script>
+
+</body>
+</html>

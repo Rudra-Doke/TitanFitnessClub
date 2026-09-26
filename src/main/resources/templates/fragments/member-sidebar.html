@@ -1,0 +1,93 @@
+<div class="sidebar" th:fragment="sidebar">
+
+    <div class="logo">
+        <h2>TITAN</h2>
+        <span>Fitness Club</span>
+    </div>
+
+    <div class="sidebar-menu">
+
+        <ul>
+
+            <li>
+                <a th:href="@{/member/profile}">
+                    <i class="fa-solid fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/attendance}">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/membership}">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Membership</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/payments}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Payments</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/workout}">
+                    <i class="fa-solid fa-dumbbell"></i>
+                    <span>Workout Plan</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/diet}">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Diet Plan</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/member/announcements}">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Announcements</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <button type="submit" class="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const currentPath = window.location.pathname;
+
+            document.querySelectorAll(".sidebar a").forEach(function (link) {
+
+                const linkPath = new URL(link.href).pathname;
+
+                if (linkPath === currentPath) {
+                    const li = link.closest("li");
+                    if (li) {
+                        li.classList.add("active");
+                    }
+                }
+
+            });
+
+        });
+    </script>
+
+</div>

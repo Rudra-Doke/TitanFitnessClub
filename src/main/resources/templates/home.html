@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Titan Fitness Club | Stronger Every Day</title>
+
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="/" class="brand">
+        <span class="brand-main">TITAN</span>
+        <span class="brand-sub">FITNESS CLUB</span>
+    </a>
+
+    <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#membership">Membership</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+        <a href="/login" class="login-btn">LOGIN</a>
+        <a href="/register" class="join-btn">JOIN NOW</a>
+    </div>
+
+    <button class="mobile-menu" id="mobileMenu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <span class="eyebrow reveal">
+            <span></span>
+            TITAN FITNESS CLUB
+            <span></span>
+        </span>
+
+        <h1 class="reveal">
+            BE STRONGER<br>
+            THAN YOUR<br>
+            <span>EXCUSES.</span>
+        </h1>
+
+        <p class="hero-text reveal">
+            Build strength. Build discipline. Build the best version of yourself.
+        </p>
+
+        <div class="hero-buttons reveal">
+
+            <a href="/register" class="primary-btn">
+                START YOUR JOURNEY
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <a href="#services" class="secondary-btn">
+                EXPLORE TITAN
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-scroll">
+        <span>SCROLL TO EXPLORE</span>
+        <i class="fa-solid fa-arrow-down"></i>
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat reveal">
+        <strong>500+</strong>
+        <span>ACTIVE MEMBERS</span>
+    </div>
+
+    <div class="stat reveal">
+        <strong>15+</strong>
+        <span>EXPERT TRAINERS</span>
+    </div>
+
+    <div class="stat reveal">
+        <strong>10+</strong>
+        <span>YEARS OF EXPERIENCE</span>
+    </div>
+
+    <div class="stat reveal">
+        <strong>24/7</strong>
+        <span>FITNESS MINDSET</span>
+    </div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about section" id="about">
+
+    <div class="section-label">
+        <span>01</span>
+        ABOUT TITAN
+    </div>
+
+    <div class="about-grid">
+
+        <div class="about-image reveal">
+
+            <div class="image-placeholder about-photo">
+                <div>
+                    <i class="fa-solid fa-dumbbell"></i>
+                    <span>TITAN</span>
+                </div>
+            </div>
+
+            <div class="experience-badge">
+                <strong>10+</strong>
+                <span>YEARS OF<br>EXCELLENCE</span>
+            </div>
+
+        </div>
+
+        <div class="about-content reveal">
+
+            <span class="gold-text">NO SHORTCUTS. JUST RESULTS.</span>
+
+            <h2>
+                YOUR BODY IS<br>
+                YOUR <span>POWER.</span>
+            </h2>
+
+            <p>
+                Titan Fitness Club is built for people who refuse to settle.
+                Whether your goal is building muscle, improving strength,
+                losing fat or simply becoming healthier, Titan gives you
+                the environment to make it happen.
+            </p>
+
+            <p>
+                Train harder. Move smarter. Stay consistent.
+                Your transformation starts with one decision.
+            </p>
+
+            <a href="/register" class="text-btn">
+                BECOME A TITAN MEMBER
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+
+<section class="services section" id="services">
+
+    <div class="section-heading reveal">
+
+        <div class="section-label">
+            <span>02</span>
+            WHAT WE OFFER
+        </div>
+
+        <h2>
+            EVERYTHING YOU NEED<br>
+            TO <span>GET STRONGER.</span>
+        </h2>
+
+        <p>
+            A complete fitness environment designed around your goals.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+        <div class="service-card reveal">
+
+            <div class="service-number">01</div>
+
+            <i class="fa-solid fa-dumbbell"></i>
+
+            <h3>STRENGTH TRAINING</h3>
+
+            <p>
+                Build real strength with structured workouts
+                designed for progressive improvement.
+            </p>
+
+            <a href="/register">
+                LEARN MORE
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="service-card featured reveal">
+
+            <div class="service-number">02</div>
+
+            <i class="fa-solid fa-person-running"></i>
+
+            <h3>PERSONAL FITNESS</h3>
+
+            <p>
+                Follow personalized workout and diet plans
+                built around your individual goals.
+            </p>
+
+            <a href="/register">
+                LEARN MORE
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="service-card reveal">
+
+            <div class="service-number">03</div>
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <h3>FITNESS & HEALTH</h3>
+
+            <p>
+                Improve endurance, mobility and overall health
+                while building a stronger lifestyle.
+            </p>
+
+            <a href="/register">
+                LEARN MORE
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+
+        <div class="service-card reveal">
+
+            <div class="service-number">04</div>
+
+            <i class="fa-solid fa-apple-whole"></i>
+
+            <h3>DIET GUIDANCE</h3>
+
+            <p>
+                Stay on track with practical nutrition guidance
+                that supports your training goals.
+            </p>
+
+            <a href="/register">
+                LEARN MORE
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MOTIVATION ================= -->
+
+<section class="motivation">
+
+    <div class="motivation-overlay"></div>
+
+    <div class="motivation-content reveal">
+
+        <span>DISCIPLINE BUILDS RESULTS</span>
+
+        <h2>
+            TRAIN LIKE A<br>
+            <span>TITAN.</span>
+        </h2>
+
+        <p>
+            Motivation gets you started.<br>
+            Discipline keeps you going.
+        </p>
+
+        <a href="/register" class="primary-btn">
+            JOIN TITAN
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MEMBERSHIP ================= -->
+
+<section class="membership section" id="membership">
+
+    <div class="section-heading reveal">
+
+        <div class="section-label">
+            <span>03</span>
+            MEMBERSHIP
+        </div>
+
+        <h2>
+            CHOOSE YOUR<br>
+            <span>LEVEL.</span>
+        </h2>
+
+        <p>
+            Start where you are. Become stronger every day.
+        </p>
+
+    </div>
+
+
+    <div class="plans">
+
+        <div class="plan-card reveal">
+
+            <span class="plan-name">BASIC</span>
+
+            <div class="price">
+                <small>₹</small>999
+                <span>/ MONTH</span>
+            </div>
+
+            <div class="plan-line"></div>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Gym Access</li>
+                <li><i class="fa-solid fa-check"></i> Basic Equipment</li>
+                <li><i class="fa-solid fa-check"></i> Locker Access</li>
+                <li><i class="fa-solid fa-xmark"></i> Personal Training</li>
+            </ul>
+
+            <a href="/register" class="plan-btn">
+                CHOOSE BASIC
+            </a>
+
+        </div>
+
+
+        <div class="plan-card popular reveal">
+
+            <div class="popular-tag">MOST POPULAR</div>
+
+            <span class="plan-name">GOLD</span>
+
+            <div class="price">
+                <small>₹</small>1499
+                <span>/ MONTH</span>
+            </div>
+
+            <div class="plan-line"></div>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Full Gym Access</li>
+                <li><i class="fa-solid fa-check"></i> Workout Plan</li>
+                <li><i class="fa-solid fa-check"></i> Diet Guidance</li>
+                <li><i class="fa-solid fa-check"></i> Progress Tracking</li>
+            </ul>
+
+            <a href="/register" class="plan-btn gold">
+                CHOOSE GOLD
+            </a>
+
+        </div>
+
+
+        <div class="plan-card reveal">
+
+            <span class="plan-name">ELITE</span>
+
+            <div class="price">
+                <small>₹</small>2499
+                <span>/ MONTH</span>
+            </div>
+
+            <div class="plan-line"></div>
+
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Everything in Gold</li>
+                <li><i class="fa-solid fa-check"></i> Personal Training</li>
+                <li><i class="fa-solid fa-check"></i> Custom Diet Plan</li>
+                <li><i class="fa-solid fa-check"></i> Priority Support</li>
+            </ul>
+
+            <a href="/register" class="plan-btn">
+                CHOOSE ELITE
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="final-cta">
+
+    <div class="cta-content reveal">
+
+        <span>YOUR TIME IS NOW.</span>
+
+        <h2>
+            READY TO BECOME<br>
+            <span>A TITAN?</span>
+        </h2>
+
+        <p>
+            Stop waiting for the perfect time.
+            Start building yourself today.
+        </p>
+
+        <a href="/register" class="primary-btn">
+            JOIN TITAN FITNESS CLUB
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="contact">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+
+            <a href="/" class="brand">
+                <span class="brand-main">TITAN</span>
+                <span class="brand-sub">FITNESS CLUB</span>
+            </a>
+
+            <p>
+                Stronger Body.<br>
+                Stronger Mind.<br>
+                Stronger You.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>QUICK LINKS</h4>
+
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#membership">Membership</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>MEMBERS</h4>
+
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>CONTACT</h4>
+
+            <span>
+                <i class="fa-solid fa-location-dot"></i>
+                Mumbai, Maharashtra
+            </span>
+
+            <span>
+                <i class="fa-solid fa-phone"></i>
+                +91 72080 67566
+            </span>
+
+            <span>
+                <i class="fa-solid fa-envelope"></i>
+                titanfitness143@gmail.com
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <span>
+            © 2026 Titan Fitness Club. All Rights Reserved.
+        </span>
+
+        <div class="socials">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    const mobileMenu = document.getElementById("mobileMenu");
+    const navLinks = document.querySelector(".nav-links");
+
+    mobileMenu.addEventListener("click", () => {
+        navLinks.classList.toggle("mobile-open");
+    });
+
+
+    /* ================= SCROLL REVEAL ================= */
+
+    const observer = new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12
+        }
+    );
+
+
+    document.querySelectorAll(".reveal").forEach(element => {
+        observer.observe(element);
+    });
+
+
+    /* ================= NAVBAR ================= */
+
+    window.addEventListener("scroll", () => {
+
+        const navbar = document.querySelector(".navbar");
+
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

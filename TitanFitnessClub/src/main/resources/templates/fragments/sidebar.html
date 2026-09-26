@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<aside th:fragment="sidebar(activePage)" class="sidebar">
+
+    <div class="brand">
+
+        <h1>TITAN</h1>
+
+        <span>Fitness Club</span>
+
+    </div>
+
+    <nav>
+
+        <a th:href="@{/dashboard}"
+           class="nav-item"
+           th:classappend="${activePage == 'dashboard'} ? ' active'">
+            <span>🏠</span>
+            Dashboard
+        </a>
+
+        <a th:href="@{/members}"
+           class="nav-item"
+           th:classappend="${activePage == 'members'} ? ' active'">
+            <span>👥</span>
+            Members
+        </a>
+
+        <a th:href="@{/plans}"
+           class="nav-item"
+           th:classappend="${activePage == 'plans'} ? ' active'">
+            <span>💳</span>
+            Membership Plans
+        </a>
+
+        <a th:href="@{/trainers}"
+           class="nav-item"
+           th:classappend="${activePage == 'trainers'} ? ' active'">
+            <span>🏋️</span>
+            Trainers
+        </a>
+
+        <a th:href="@{/attendance}"
+           class="nav-item"
+           th:classappend="${activePage == 'attendance'} ? ' active'">
+
+            <span>📅</span>
+
+            Attendance
+
+        </a>
+
+        <a th:href="@{/payments}"
+           class="nav-item"
+           th:classappend="${activePage == 'payments'} ? ' active'">
+
+            <span>💰</span>
+
+            Payments
+
+        </a>
+
+        <a th:href="@{/equipment}"
+           class="nav-item"
+           th:classappend="${activePage == 'equipment'} ? ' active'">
+
+            <span>🏋️</span>
+
+            Equipment
+
+        </a>
+
+        <a th:href="@{/reports}"
+           class="nav-item"
+           th:classappend="${activePage == 'reports'} ? ' active'">
+
+            <span>📊</span>
+            Reports
+
+        </a>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+        <a th:href="@{/logout}" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</aside>
+
+</body>
+
+</html>

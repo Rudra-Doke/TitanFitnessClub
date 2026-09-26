@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Plan</title>
+
+    <link rel="stylesheet" th:href="@{/css/member-dashboard.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="fragments/member-sidebar :: sidebar"></div>
+
+<div class="main-content">
+
+    <div th:replace="fragments/member-header :: header"></div>
+
+    <div class="dashboard-content">
+
+        <h1>DIET PLAN</h1>
+
+        <div class="profile-card">
+
+            <h2>My Diet Plan</h2>
+
+            <div class="diet-list"
+                 th:if="${not #lists.isEmpty(dietPlans)}">
+
+                <div class="diet-card"
+                     th:each="diet : ${dietPlans}">
+
+                    <h3 th:text="${diet.meal}">
+                        Breakfast
+                    </h3>
+
+                    <p>
+                        <strong>Food:</strong>
+                        <span th:text="${diet.food}">
+                            Oats and Milk
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Quantity:</strong>
+                        <span th:text="${diet.quantity}">
+                            100g
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Calories:</strong>
+                        <span th:text="${diet.calories}">
+                            450 kcal
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Protein:</strong>
+                        <span th:text="${diet.protein}">
+                            25g
+                        </span>
+                    </p>
+
+                    <p th:if="${diet.notes != null and !diet.notes.isEmpty()}">
+                        <strong>Notes:</strong>
+                        <span th:text="${diet.notes}"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+            <p th:if="${#lists.isEmpty(dietPlans)}">
+                No diet plan has been assigned to you yet.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

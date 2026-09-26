@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<aside th:fragment="sidebar(activePage)" class="sidebar">
+
+    <!-- LOGO -->
+    <div class="brand">
+        <h1>TITAN</h1>
+        <span>Fitness Club</span>
+    </div>
+
+    <!-- NAVIGATION -->
+    <ul>
+
+        <li>
+            <a th:href="@{/dashboard}"
+               class="nav-item"
+               th:classappend="${activePage == 'dashboard'} ? ' active'">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/members}"
+               class="nav-item"
+               th:classappend="${activePage == 'members'} ? ' active'">
+                <i class="fa-solid fa-users"></i>
+                <span>Members</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/plans}"
+               class="nav-item"
+               th:classappend="${activePage == 'plans'} ? ' active'">
+                <i class="fa-solid fa-id-card"></i>
+                <span>Membership Plans</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/workout-plans}"
+               class="nav-item"
+               th:classappend="${activePage == 'workout-plans'} ? ' active'">
+                <i class="fa-solid fa-dumbbell"></i>
+                <span>Workout Plans</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/diet-plans}"
+               class="nav-item"
+               th:classappend="${activePage == 'diet-plans'} ? ' active'">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Diet Plans</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/announcements}"
+               class="nav-item"
+               th:classappend="${activePage == 'announcements'} ? ' active'">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Announcements</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/trainers}"
+               class="nav-item"
+               th:classappend="${activePage == 'trainers'} ? ' active'">
+                <i class="fa-solid fa-person-running"></i>
+                <span>Trainers</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/attendance}"
+               class="nav-item"
+               th:classappend="${activePage == 'attendance'} ? ' active'">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Attendance</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/payments}"
+               class="nav-item"
+               th:classappend="${activePage == 'payments'} ? ' active'">
+                <i class="fa-solid fa-money-bill-wave"></i>
+                <span>Payments</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/equipment}"
+               class="nav-item"
+               th:classappend="${activePage == 'equipment'} ? ' active'">
+                <i class="fa-solid fa-dumbbell"></i>
+                <span>Equipment</span>
+            </a>
+        </li>
+
+        <li>
+            <a th:href="@{/reports}"
+               class="nav-item"
+               th:classappend="${activePage == 'reports'} ? ' active'">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- LOGOUT -->
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <button type="submit" class="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </button>
+    </form>
+
+</aside>
+
+</body>
+</html>

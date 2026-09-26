@@ -1,0 +1,569 @@
+/* ===================================================
+   Titan Fitness Club - Global Theme
+=================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+
+    --black:#121212;
+    --graphite:#1B1B1B;
+    --sidebar:#181818;
+
+    --gold:#D4AF37;
+    --gold-light:#F4D03F;
+
+    --white:#F5F5F5;
+    --gray:#9E9E9E;
+
+    --border:#2F2F2F;
+
+    --success:#2ECC71;
+    --danger:#E74C3C;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:var(--black);
+
+    color:var(--white);
+
+    font-family:'Poppins',sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+h1,h2,h3,h4{
+
+    font-family:'Cinzel',serif;
+
+    color:var(--gold);
+
+}
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+button{
+
+    border:none;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.container{
+
+    width:92%;
+
+    margin:auto;
+
+}
+/*======================================
+  Navigation Rail
+======================================*/
+
+.sidebar{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:240px;
+    height:100vh;
+
+    background:#121212;
+
+    border-right:1px solid #2F2F2F;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.35s;
+
+    z-index:1000;
+
+}
+
+.brand{
+
+    height:90px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-bottom:1px solid #2F2F2F;
+
+}
+
+.brand h1{
+
+    font-size:30px;
+
+    color:#D4AF37;
+
+    letter-spacing:5px;
+
+}
+
+.brand span{
+
+    color:#9E9E9E;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+}
+
+.nav-item{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin:6px 15px;
+
+    padding:15px 18px;
+
+    border-radius:12px;
+
+    color:#EAEAEA;
+
+    transition:.35s;
+
+    font-weight:500;
+
+}
+
+.nav-item:hover{
+
+    background:#232323;
+
+    color:#D4AF37;
+
+    transform:translateX(6px);
+
+}
+.nav-item.active{
+
+    background:#D4AF37;
+
+    color:#121212;
+
+    font-weight:600;
+
+}
+
+.nav-item.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-15px;
+
+    width:5px;
+
+    height:60%;
+
+    background:#D4AF37;
+
+    border-radius:10px;
+
+}
+.sidebar-footer{
+
+    margin-top:auto;
+
+    padding:25px;
+
+}
+
+.logout{
+
+    margin:20px;
+
+    padding:14px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    background:#A32626;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+.logout:hover{
+
+    background:#C0392B;
+
+}
+/*======================================
+ Header
+======================================*/
+
+.header{
+
+    position:fixed;
+
+    left:240px;
+    right:0;
+    top:0;
+
+    height:75px;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 35px;
+
+    border-bottom:1px solid #E8E8E8;
+
+    z-index:999;
+
+}
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+.search-box{
+
+    width:360px;
+
+    height:46px;
+
+    background:#F5F6FA;
+
+    border-radius:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    gap:12px;
+
+}
+
+.search-box i{
+
+    color:#888;
+
+}
+
+.search-box input{
+
+    flex:1;
+
+    border:none;
+
+    background:none;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+.admin-profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.avatar{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    color:black;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+.admin-profile h4{
+
+    color:white;
+
+    font-family:'Poppins',sans-serif;
+
+}
+
+.admin-profile small{
+
+    color:var(--gray);
+
+}
+
+/* ===========================================
+   MAIN CONTENT
+=========================================== */
+
+.main-content{
+
+    margin-left:270px;
+    margin-top:80px;
+
+    min-height:calc(100vh - 140px);
+
+    padding:35px;
+
+}
+
+/* ===========================================
+   FOOTER
+=========================================== */
+
+.footer{
+
+    margin-left:270px;
+
+    height:60px;
+
+    background:var(--graphite);
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:var(--gray);
+
+    font-size:14px;
+
+}
+/* ===========================================
+   DASHBOARD
+=========================================== */
+
+.page-title{
+
+    margin-bottom:35px;
+
+    font-size:36px;
+
+}
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:30px;
+
+}
+
+.dashboard-card{
+
+    background:var(--graphite);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:35px;
+
+    transition:.35s;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--gold);
+
+}
+
+.dashboard-card i{
+
+    font-size:34px;
+
+    color:var(--gold);
+
+    margin-bottom:20px;
+
+}
+
+.dashboard-card h3{
+
+    color:var(--gray);
+
+    font-family:'Poppins',sans-serif;
+
+    margin-bottom:10px;
+
+}
+
+.dashboard-card h2 {
+
+    color: white;
+
+    font-size: 38px;
+
+    font-family: 'Poppins', sans-serif;
+
+}
+.btn-primary{
+
+    background:var(--gold);
+
+    color:black;
+
+}
+
+.btn-primary:hover{
+
+    filter:brightness(1.08);
+
+}
+.icon-btn{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:12px;
+
+    border:none;
+
+    background:#F5F6FA;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.icon-btn:hover{
+
+    background:#D4AF37;
+
+    color:black;
+
+}
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.avatar{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    background:#D4AF37;
+
+    color:black;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+}
+
+.profile h4{
+
+    color:#222;
+
+    margin:0;
+
+    font-size:15px;
+
+}
+
+.profile small{
+
+    color:#777;
+
+}

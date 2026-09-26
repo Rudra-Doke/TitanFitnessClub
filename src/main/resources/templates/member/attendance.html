@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Attendance</title>
+
+    <link rel="stylesheet" th:href="@{/css/member-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/member/attendance.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/member-sidebar :: sidebar"></div>
+
+<div class="main-content">
+
+    <div th:replace="fragments/member-header :: header"></div>
+
+    <div class="dashboard-content">
+
+        <h1>ATTENDANCE</h1>
+
+        <!-- Attendance Summary -->
+
+        <div class="attendance-cards">
+
+            <div class="attendance-card">
+                <i class="fa-solid fa-calendar-check"></i>
+                <h3>Present Days</h3>
+                <p th:text="${presentDays}">0</p>
+            </div>
+
+            <div class="attendance-card">
+                <i class="fa-solid fa-calendar-xmark"></i>
+                <h3>Absent Days</h3>
+                <p th:text="${absentDays}">0</p>
+            </div>
+
+            <div class="attendance-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Attendance</h3>
+                <p th:text="${attendancePercentage + '%'}">0%</p>
+            </div>
+
+        </div>
+
+
+        <!-- Attendance History -->
+
+        <div class="attendance-history">
+
+            <h2>Attendance History</h2>
+
+            <table>
+
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="attendance : ${attendanceList}">
+
+                    <td th:text="${#temporals.format(attendance.attendanceDate, 'dd MMM yyyy')}">
+                        08 Aug 2026
+                    </td>
+
+                    <td th:text="${attendance.status}"
+                        th:classappend="${#strings.equalsIgnoreCase(attendance.status, 'Present')} ? 'present' : 'absent'">
+                        Present
+                    </td>
+
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(attendanceList)}">
+
+                    <td colspan="2" style="text-align:center;">
+                        No attendance records found.
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

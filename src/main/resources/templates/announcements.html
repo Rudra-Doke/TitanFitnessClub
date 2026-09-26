@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Announcements</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('announcements')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+
+<div class="main-content announcements-page">
+
+    <!-- PAGE TITLE -->
+
+    <h1 class="page-title">
+        Announcements
+    </h1>
+
+
+    <!-- CREATE ANNOUNCEMENT -->
+
+    <div class="form-card">
+
+        <h2>
+            <i class="fa-solid fa-bullhorn"></i>
+            Create Announcement
+        </h2>
+
+
+        <form th:action="@{/announcements/add}" method="post">
+
+            <div class="form-group">
+
+                <label>Title</label>
+
+                <input type="text"
+                       name="title"
+                       placeholder="e.g. Gym will remain closed on Sunday"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Message</label>
+
+                <textarea name="message"
+                          rows="5"
+                          placeholder="Write your announcement here..."
+                          required></textarea>
+
+            </div>
+
+
+            <button type="submit" class="btn-primary">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Post Announcement
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- ALL ANNOUNCEMENTS -->
+
+    <div class="table-card announcements-table-card">
+
+        <h2>
+
+            <i class="fa-solid fa-bullhorn"></i>
+
+            All Announcements
+
+        </h2>
+
+
+        <div class="announcement-table-wrapper">
+
+            <table class="announcement-table">
+
+                <thead>
+
+                <tr>
+
+                    <th>Title</th>
+
+                    <th>Message</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <tr th:each="announcement : ${announcements}">
+
+                    <td th:text="${announcement.title}">
+                        Gym Holiday
+                    </td>
+
+
+                    <td class="announcement-message"
+                        th:text="${announcement.message}">
+                        Gym will remain closed tomorrow.
+                    </td>
+
+
+                    <td class="announcement-date"
+                        th:text="${#temporals.format(announcement.createdAt, 'dd MMM yyyy HH:mm')}">
+                        08 Aug 2026 14:00
+                    </td>
+
+
+                    <td class="announcement-actions">
+
+                        <a th:href="@{/announcements/delete/{id}(id=${announcement.id})}"
+                           class="btn-danger"
+                           onclick="return confirm('Delete this announcement?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+                <!-- EMPTY STATE -->
+
+                <tr th:if="${#lists.isEmpty(announcements)}">
+
+                    <td colspan="4" class="empty-state">
+
+                        No announcements yet.
+
+                    </td>
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

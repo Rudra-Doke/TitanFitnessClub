@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Plans</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('workout-plans')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Workout Plans
+    </h1>
+
+    <!-- ASSIGN WORKOUT -->
+    <div class="form-card">
+
+        <h2>
+            <i class="fa-solid fa-dumbbell"></i>
+            Assign Workout
+        </h2>
+
+        <form th:action="@{/workout-plans/save}" method="post">
+
+            <div class="form-group">
+                <label>Member</label>
+
+                <select name="memberId" required>
+                    <option value="">Select Member</option>
+
+                    <option th:each="member : ${members}"
+                            th:value="${member.id}"
+                            th:text="${member.fullName}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Day</label>
+
+                <select name="day" required>
+                    <option value="">Select Day</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Exercise</label>
+
+                <input type="text"
+                       name="exercise"
+                       placeholder="e.g. Bench Press"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Sets</label>
+
+                <input type="text"
+                       name="sets"
+                       placeholder="e.g. 3"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Reps</label>
+
+                <input type="text"
+                       name="reps"
+                       placeholder="e.g. 10"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Notes</label>
+
+                <textarea name="notes"
+                          rows="4"
+                          placeholder="e.g. Controlled reps, proper form"></textarea>
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-success">
+                    <i class="fa-solid fa-plus"></i>
+                    Assign Workout
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ASSIGNED WORKOUTS -->
+    <div class="table-container">
+
+        <h2>
+            <i class="fa-solid fa-list"></i>
+            Assigned Workouts
+        </h2>
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>Member</th>
+                <th>Day</th>
+                <th>Exercise</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="workout : ${workouts}">
+
+                <td th:text="${workout.member.fullName}">
+                    Member
+                </td>
+
+                <td th:text="${workout.day}">
+                    Monday
+                </td>
+
+                <td th:text="${workout.exercise}">
+                    Bench Press
+                </td>
+
+                <td th:text="${workout.sets}">
+                    3
+                </td>
+
+                <td th:text="${workout.reps}">
+                    10
+                </td>
+
+                <td th:text="${workout.notes}">
+                    -
+                </td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a class="btn btn-danger"
+                           th:href="@{/workout-plans/delete/{id}(id=${workout.id})}"
+                           onclick="return confirm('Delete this workout?')">
+
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

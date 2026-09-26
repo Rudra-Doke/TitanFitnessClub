@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Members</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('members')"></div>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Members
+    </h1>
+
+    <a th:href="@{/members/add}" class="btn btn-success">
+        <i class="fa-solid fa-user-plus"></i>
+        Add Member
+    </a>
+
+    <div class="table-container">
+
+        <table class="table">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Member ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="member : ${members}">
+
+                <td th:text="${member.id}"></td>
+
+                <td th:text="${member.memberId}"></td>
+
+                <td th:text="${member.fullName}"></td>
+
+                <td th:text="${member.phone}"></td>
+
+                <td th:text="${member.membershipPlan}"></td>
+
+                <td th:text="${member.status}"></td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a class="btn btn-primary"
+                           th:href="@{/members/edit/{id}(id=${member.id})}">
+                            <i class="fa-solid fa-pen"></i>
+                            Edit
+                        </a>
+
+                        <a class="btn btn-danger"
+                           th:href="@{/members/delete/{id}(id=${member.id})}"
+                           onclick="return confirm('Delete this member?')">
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

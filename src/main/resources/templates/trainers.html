@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Trainers</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('trainers')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Trainers
+    </h1>
+
+    <a th:href="@{/trainers/add}" class="btn btn-success">
+
+        <i class="fa-solid fa-user-plus"></i>
+
+        Add Trainer
+
+    </a>
+
+    <div class="table-container">
+
+        <table class="table">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Trainer ID</th>
+                <th>Name</th>
+                <th>Specialization</th>
+                <th>Experience</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="trainer : ${trainers}">
+
+                <td th:text="${trainer.id}"></td>
+
+                <td th:text="${trainer.trainerId}"></td>
+
+                <td th:text="${trainer.fullName}"></td>
+
+                <td th:text="${trainer.specialization}"></td>
+
+                <td th:text="${trainer.experience} + ' Years'"></td>
+
+                <td th:text="${trainer.status}"></td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a class="btn btn-primary"
+                           th:href="@{/trainers/edit/{id}(id=${trainer.id})}">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </a>
+
+                        <a class="btn btn-danger"
+                           th:href="@{/trainers/delete/{id}(id=${trainer.id})}"
+                           onclick="return confirm('Delete this trainer?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

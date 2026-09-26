@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Titan Fitness Club</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/theme.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/dashboard.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/tables.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/forms.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/animations.css}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div th:replace="layout/sidebar :: sidebar"></div>
+
+<!-- Header -->
+<div th:replace="layout/header :: header"></div>
+
+<!-- Main Content -->
+<main class="main-content">
+
+    <!-- Every page will replace this -->
+    <div th:insert="${content}"></div>
+
+</main>
+
+<!-- Footer -->
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+
+</html>

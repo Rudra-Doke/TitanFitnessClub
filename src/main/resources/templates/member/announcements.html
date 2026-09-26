@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Announcements</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/theme.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/member-dashboard.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/member-sidebar :: sidebar"></div>
+
+<div class="main-content">
+
+    <div th:replace="fragments/member-header :: header"></div>
+
+    <div class="dashboard-content">
+
+        <h1>Announcements</h1>
+
+        <div class="cards">
+
+            <div class="card"
+                 th:each="announcement : ${announcements}">
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+                <h3 th:text="${announcement.title}">
+                    Announcement Title
+                </h3>
+
+                <p th:text="${announcement.message}">
+                    Announcement message
+                </p>
+                <small th:text="${#temporals.format(announcement.createdAt, 'dd MMM yyyy, hh:mm a')}">
+                    Date
+                </small>
+            </div>
+
+        </div>
+
+        <div th:if="${#lists.isEmpty(announcements)}"
+             class="card">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <h3>No Announcements</h3>
+
+            <p>There are currently no announcements.</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

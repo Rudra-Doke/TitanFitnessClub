@@ -1,0 +1,313 @@
+/* ======================================
+   TABLES
+====================================== */
+
+.table-container{
+
+    background:var(--graphite);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    margin-top:25px;
+
+}
+
+.table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.table thead{
+
+    background:var(--gold);
+
+}
+
+.table th{
+
+    color:black;
+
+    padding:18px;
+
+    text-align:left;
+
+    font-weight:600;
+
+}
+
+.table td{
+
+    padding:18px;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.table tbody tr{
+
+    transition:.3s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#242424;
+
+}
+
+.action-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+}
+.table td,
+.table th{
+
+    vertical-align:middle;
+
+}
+
+.table td{
+
+    color:var(--white);
+
+}
+
+.table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+/* ======================================
+   ANNOUNCEMENTS PAGE
+   ====================================== */
+
+.announcements-page {
+    max-width: 1400px;
+}
+
+.announcements-page .page-title {
+    margin-bottom: 24px;
+}
+
+
+/* ======================================
+   FORM
+   ====================================== */
+
+.announcements-page .form-card,
+.announcements-page .table-card {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.announcements-page .form-card {
+    margin-bottom: 28px;
+}
+
+.announcements-page .form-card h2,
+.announcements-page .table-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 0 22px;
+}
+
+.announcements-page .form-card h2 i,
+.announcements-page .table-card h2 i {
+    color: var(--gold);
+}
+
+
+.announcements-page .form-group {
+    margin-bottom: 20px;
+}
+
+.announcements-page .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+
+.announcements-page input[type="text"],
+.announcements-page textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.announcements-page textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+
+.announcements-page .form-card .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 2px;
+}
+
+
+/* ======================================
+   ANNOUNCEMENTS TABLE
+   ====================================== */
+
+.announcements-table-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+
+.announcements-table-card > h2 {
+    padding: 24px 26px 20px;
+    margin: 0;
+    border-bottom: 1px solid var(--border);
+}
+
+
+/* Horizontal scroll on smaller screens */
+
+.announcement-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+/* Table */
+
+.announcement-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+
+/* Header */
+
+.announcement-table thead {
+    background: var(--gold);
+}
+
+
+.announcement-table th {
+    padding: 16px 20px;
+    color: #000;
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* Cells */
+
+.announcement-table td {
+    padding: 18px 20px;
+    color: var(--white);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+
+/* Rows */
+
+.announcement-table tbody tr {
+    transition: background .2s ease;
+}
+
+
+.announcement-table tbody tr:hover {
+    background: #242424;
+}
+
+
+.announcement-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Title */
+
+.announcement-table td:first-child {
+    min-width: 180px;
+    font-weight: 600;
+}
+
+
+/* Message */
+
+.announcement-message {
+    max-width: 560px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, .82) !important;
+    word-break: break-word;
+}
+
+
+/* Date */
+
+.announcement-date {
+    white-space: nowrap;
+    color: rgba(255, 255, 255, .68) !important;
+    font-size: .92rem;
+}
+
+
+/* Action */
+
+.announcement-actions {
+    white-space: nowrap;
+}
+
+
+.announcement-actions .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-decoration: none;
+}
+
+
+/* ======================================
+   EMPTY STATE
+   ====================================== */
+
+.announcement-table .empty-state {
+    padding: 36px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, .6);
+}
+
+
+/* ======================================
+   MOBILE
+   ====================================== */
+
+@media (max-width: 768px) {
+
+    .announcements-page .form-card {
+        padding: 20px;
+    }
+
+    .announcements-table-card > h2 {
+        padding: 20px;
+    }
+
+    .announcement-table {
+        min-width: 680px;
+    }
+
+}

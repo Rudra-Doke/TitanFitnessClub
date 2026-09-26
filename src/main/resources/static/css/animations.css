@@ -1,0 +1,32 @@
+/* ======================================
+   ANIMATIONS
+====================================== */
+
+.card,
+.dashboard-card,
+.form-card,
+.table-container{
+
+    animation:fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}

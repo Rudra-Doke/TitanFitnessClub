@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Payments</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('payments')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Payments
+    </h1>
+
+    <a th:href="@{/payments/add}" class="btn btn-success">
+
+        <i class="fa-solid fa-money-bill-wave"></i>
+
+        Add Payment
+
+    </a>
+
+    <div class="table-container">
+
+        <table class="table">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Member</th>
+                <th>Plan</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="payment : ${payments}">
+
+                <td th:text="${payment.id}"></td>
+
+                <td th:text="${payment.member.fullName}"></td>
+
+                <td th:text="${payment.membershipPlan.planName}"></td>
+
+                <td th:text="'₹' + ${payment.amount}"></td>
+
+                <td th:text="${payment.paymentDate}"></td>
+
+                <td th:text="${payment.paymentStatus}"></td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a class="btn btn-primary"
+                           th:href="@{/payments/edit/{id}(id=${payment.id})}">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Edit
+
+                        </a>
+
+                        <a class="btn btn-danger"
+                           th:href="@{/payments/delete/{id}(id=${payment.id})}"
+                           onclick="return confirm('Delete this payment?')">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

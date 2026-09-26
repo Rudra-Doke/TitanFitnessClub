@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Plan</title>
+
+    <link rel="stylesheet" th:href="@{/css/member-dashboard.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="fragments/member-sidebar :: sidebar"></div>
+
+<div class="main-content">
+
+    <div th:replace="fragments/member-header :: header"></div>
+
+    <div class="dashboard-content">
+
+        <h1>WORKOUT PLAN</h1>
+
+        <div class="profile-card">
+           <h2>My Workout Plan</h2>
+
+            <div class="workout-list" th:if="${not #lists.isEmpty(workouts)}">
+
+                <div class="workout-card" th:each="workout : ${workouts}">
+
+                    <h3 th:text="${workout.day}">Monday</h3>
+
+                    <p>
+                        <strong>Exercise:</strong>
+                        <span th:text="${workout.exercise}">Bench Press</span>
+                    </p>
+
+                    <p>
+                        <strong>Sets:</strong>
+                        <span th:text="${workout.sets}">3</span>
+                    </p>
+
+                    <p>
+                        <strong>Reps:</strong>
+                        <span th:text="${workout.reps}">10</span>
+                    </p>
+
+                    <p th:if="${workout.notes != null and !workout.notes.isEmpty()}">
+                        <strong>Notes:</strong>
+                        <span th:text="${workout.notes}"></span>
+                    </p>
+
+                </div>
+
+            </div>
+
+            <p th:if="${#lists.isEmpty(workouts)}">
+                No workout plan has been assigned to you yet.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

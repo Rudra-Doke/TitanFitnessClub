@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diet Plans</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('diet-plans')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <h1 class="page-title">
+        Diet Plans
+    </h1>
+
+    <!-- ASSIGN DIET -->
+    <div class="form-card">
+
+        <h2>
+            <i class="fa-solid fa-utensils"></i>
+            Assign Diet Plan
+        </h2>
+
+        <form th:action="@{/diet-plans/save}" method="post">
+
+            <div class="form-group">
+                <label>Member</label>
+
+                <select name="memberId" required>
+                    <option value="">Select Member</option>
+
+                    <option th:each="member : ${members}"
+                            th:value="${member.id}"
+                            th:text="${member.fullName}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Meal</label>
+
+                <select name="meal" required>
+                    <option value="">Select Meal</option>
+                    <option>Breakfast</option>
+                    <option>Mid-Morning</option>
+                    <option>Lunch</option>
+                    <option>Evening Snack</option>
+                    <option>Dinner</option>
+                    <option>Post-Workout</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Food</label>
+
+                <input type="text"
+                       name="food"
+                       placeholder="e.g. Oats, Milk & Banana"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity</label>
+
+                <input type="text"
+                       name="quantity"
+                       placeholder="e.g. 100g">
+            </div>
+
+            <div class="form-group">
+                <label>Calories</label>
+
+                <input type="text"
+                       name="calories"
+                       placeholder="e.g. 450 kcal">
+            </div>
+
+            <div class="form-group">
+                <label>Protein</label>
+
+                <input type="text"
+                       name="protein"
+                       placeholder="e.g. 25g">
+            </div>
+
+            <div class="form-group">
+                <label>Notes</label>
+
+                <textarea name="notes"
+                          rows="4"
+                          placeholder="e.g. No added sugar"></textarea>
+            </div>
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn btn-success">
+                    <i class="fa-solid fa-plus"></i>
+                    Assign Diet Plan
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ASSIGNED DIET PLANS -->
+    <div class="table-container">
+
+        <h2>
+            <i class="fa-solid fa-list"></i>
+            Assigned Diet Plans
+        </h2>
+
+        <table class="table">
+
+            <thead>
+            <tr>
+                <th>Member</th>
+                <th>Meal</th>
+                <th>Food</th>
+                <th>Quantity</th>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Notes</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+
+            <tbody>
+
+            <tr th:each="diet : ${dietPlans}">
+
+                <td th:text="${diet.member.fullName}">
+                    Member
+                </td>
+
+                <td th:text="${diet.meal}">
+                    Breakfast
+                </td>
+
+                <td th:text="${diet.food}">
+                    Oats
+                </td>
+
+                <td th:text="${diet.quantity}">
+                    100g
+                </td>
+
+                <td th:text="${diet.calories}">
+                    450 kcal
+                </td>
+
+                <td th:text="${diet.protein}">
+                    25g
+                </td>
+
+                <td th:text="${diet.notes}">
+                    -
+                </td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a class="btn btn-danger"
+                           th:href="@{/diet-plans/delete/{id}(id=${diet.id})}"
+                           onclick="return confirm('Delete this diet plan?')">
+
+                            <i class="fa-solid fa-trash"></i>
+                            Delete
+
+                        </a>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

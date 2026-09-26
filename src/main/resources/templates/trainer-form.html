@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Trainer</title>
+
+    <link rel="stylesheet" th:href="@{/css/theme.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <link rel="stylesheet" th:href="@{/css/animations.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div th:replace="fragments/sidebar :: sidebar('trainers')"></div>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="main-content">
+
+    <div class="form-card">
+
+        <h2 th:text="${trainer.id == null ? 'Add Trainer' : 'Edit Trainer'}"></h2>
+
+        <form th:action="@{/trainers/save}"
+              th:object="${trainer}"
+              method="post">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <div class="form-group">
+
+                <label>Trainer ID</label>
+
+                <input type="text"
+                       th:field="*{trainerId}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       th:field="*{fullName}"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Specialization</label>
+
+                <input type="text"
+                       th:field="*{specialization}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Experience (Years)</label>
+
+                <input type="number"
+                       min="0"
+                       th:field="*{experience}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <input type="text"
+                       th:field="*{phone}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input type="email"
+                       th:field="*{email}">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select th:field="*{status}">
+
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button class="btn btn-success"
+                        type="submit">
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Trainer
+
+                </button>
+
+                <a th:href="@{/trainers}"
+                   class="btn btn-danger">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>
