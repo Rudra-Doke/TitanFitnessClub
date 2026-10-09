@@ -16,6 +16,7 @@
 
         <li>
             <a th:href="@{/dashboard}"
+               aria-label="Dashboard" title="Dashboard"
                class="nav-item"
                th:classappend="${activePage == 'dashboard'} ? ' active'">
                 <i class="fa-solid fa-house"></i>
@@ -25,6 +26,7 @@
 
         <li>
             <a th:href="@{/members}"
+               aria-label="Members" title="Members"
                class="nav-item"
                th:classappend="${activePage == 'members'} ? ' active'">
                 <i class="fa-solid fa-users"></i>
@@ -34,6 +36,7 @@
 
         <li>
             <a th:href="@{/plans}"
+               aria-label="Membership Plans" title="Membership Plans"
                class="nav-item"
                th:classappend="${activePage == 'plans'} ? ' active'">
                 <i class="fa-solid fa-id-card"></i>
@@ -43,6 +46,7 @@
 
         <li>
             <a th:href="@{/workout-plans}"
+               aria-label="Workout Plans" title="Workout Plans"
                class="nav-item"
                th:classappend="${activePage == 'workout-plans'} ? ' active'">
                 <i class="fa-solid fa-dumbbell"></i>
@@ -52,6 +56,7 @@
 
         <li>
             <a th:href="@{/diet-plans}"
+               aria-label="Diet Plans" title="Diet Plans"
                class="nav-item"
                th:classappend="${activePage == 'diet-plans'} ? ' active'">
                 <i class="fa-solid fa-utensils"></i>
@@ -61,6 +66,7 @@
 
         <li>
             <a th:href="@{/announcements}"
+               aria-label="Announcements" title="Announcements"
                class="nav-item"
                th:classappend="${activePage == 'announcements'} ? ' active'">
                 <i class="fa-solid fa-bullhorn"></i>
@@ -70,6 +76,7 @@
 
         <li>
             <a th:href="@{/trainers}"
+               aria-label="Trainers" title="Trainers"
                class="nav-item"
                th:classappend="${activePage == 'trainers'} ? ' active'">
                 <i class="fa-solid fa-person-running"></i>
@@ -79,6 +86,7 @@
 
         <li>
             <a th:href="@{/attendance}"
+               aria-label="Attendance" title="Attendance"
                class="nav-item"
                th:classappend="${activePage == 'attendance'} ? ' active'">
                 <i class="fa-solid fa-calendar-check"></i>
@@ -88,6 +96,7 @@
 
         <li>
             <a th:href="@{/payments}"
+               aria-label="Payments" title="Payments"
                class="nav-item"
                th:classappend="${activePage == 'payments'} ? ' active'">
                 <i class="fa-solid fa-money-bill-wave"></i>
@@ -97,6 +106,7 @@
 
         <li>
             <a th:href="@{/equipment}"
+               aria-label="Equipment" title="Equipment"
                class="nav-item"
                th:classappend="${activePage == 'equipment'} ? ' active'">
                 <i class="fa-solid fa-dumbbell"></i>
@@ -106,6 +116,7 @@
 
         <li>
             <a th:href="@{/reports}"
+               aria-label="Reports" title="Reports"
                class="nav-item"
                th:classappend="${activePage == 'reports'} ? ' active'">
                 <i class="fa-solid fa-chart-column"></i>

@@ -59,3 +59,74 @@
     font-size:34px;
 
 }
+
+.dashboard-grid { gap:18px; }
+.dashboard-card {
+    position:relative;
+    overflow:hidden;
+    min-height:170px;
+    padding:25px;
+    background:linear-gradient(145deg,#202020,#171717);
+    box-shadow:0 12px 28px rgba(0,0,0,.16);
+}
+.dashboard-card::after {
+    content:"";
+    position:absolute;
+    width:110px;
+    height:110px;
+    right:-42px;
+    top:-46px;
+    border:1px solid rgba(212,175,55,.18);
+    border-radius:50%;
+}
+.dashboard-card:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(0,0,0,.24); }
+.dashboard-card h2 { font-variant-numeric:tabular-nums; }
+
+.dashboard-actions {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+    gap:14px;
+    margin-top:28px;
+}
+.dashboard-action-btn {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-height:84px;
+    padding:16px 18px;
+    color:var(--white);
+    background:var(--graphite);
+    border:1px solid var(--border);
+    border-radius:14px;
+    transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.dashboard-action-btn:hover {
+    transform:translateY(-3px);
+    border-color:var(--gold);
+    background:#222;
+}
+.dashboard-action-btn > i:first-child {
+    display:grid;
+    place-items:center;
+    flex:0 0 42px;
+    width:42px;
+    height:42px;
+    margin:0;
+    color:var(--gold);
+    background:rgba(212,175,55,.12);
+    border-radius:12px;
+    font-size:17px;
+}
+.dashboard-action-btn div { display:grid; gap:3px; }
+.dashboard-action-btn strong { font-size:.95rem; }
+.dashboard-action-btn span { color:var(--gray); font-size:.78rem; line-height:1.4; }
+.dashboard-action-btn .arrow { margin:0 0 0 auto; color:#8d8d8d; font-size:14px; }
+
+@media (max-width:640px) {
+    .dashboard-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .dashboard-card { min-height:140px; padding:17px; border-radius:14px; }
+    .dashboard-card i { font-size:23px; margin-bottom:12px; }
+    .dashboard-card h3 { font-size:.84rem; }
+    .dashboard-card h2 { font-size:26px; overflow-wrap:anywhere; }
+    .dashboard-actions { grid-template-columns:1fr; gap:10px; margin-top:20px; }
+}
