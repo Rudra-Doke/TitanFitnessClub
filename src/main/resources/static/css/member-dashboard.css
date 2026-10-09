@@ -443,6 +443,23 @@ body { font-family:'Poppins',sans-serif; background:#121212; color:#F5F5F5; line
 .card h3 { margin:0 0 10px; color:#9E9E9E; font-family:'Poppins',sans-serif; font-size:1rem; }
 .card p { margin:0; color:#F5F5F5; font-family:'Poppins',sans-serif; font-size:1.15rem; }
 
+.attendance-card, .attendance-history, .profile-card, .payment-history {
+    border:1px solid #2f2f2f;
+    border-radius:18px;
+    background:linear-gradient(145deg,#202020,#171717);
+    box-shadow:0 12px 28px rgba(0,0,0,.16);
+    animation:fadeUp .5s ease;
+    transition:.35s;
+}
+.attendance-card { padding:25px; }
+.attendance-history, .profile-card, .payment-history { padding:25px; }
+.attendance-card:hover, .attendance-history:hover, .profile-card:hover, .payment-history:hover {
+    border-color:#D4AF37;
+    box-shadow:0 16px 34px rgba(0,0,0,.24);
+}
+.attendance-card h3 { font-family:'Poppins',sans-serif; }
+.attendance-history h2, .profile-card h2, .payment-history h2 { font-family:'Poppins',sans-serif; }
+
 @media (max-width:900px) {
     .sidebar { width:210px; }
     .main-content { margin-left:220px; padding:26px 22px; }
@@ -472,4 +489,5 @@ body { font-family:'Poppins',sans-serif; background:#121212; color:#F5F5F5; line
     .card i { margin-bottom:12px; font-size:23px; }
     .card h3 { font-size:.84rem; }
     .card p { font-size:1rem; }
+    .attendance-card, .attendance-history, .profile-card, .payment-history { padding:17px; border-radius:14px; }
 }
