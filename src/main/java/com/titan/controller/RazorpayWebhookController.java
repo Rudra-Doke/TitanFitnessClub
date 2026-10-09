@@ -1,7 +1,7 @@
 package com.titan.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 import com.titan.entity.Payment;
 import com.titan.repository.PaymentRepository;
 import com.titan.service.PaymentService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 @RestController
@@ -46,7 +45,7 @@ public class RazorpayWebhookController {
         final JsonNode event;
         try {
             event = objectMapper.readTree(body);
-        } catch (IOException ex) {
+        } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().build();
         }
 
