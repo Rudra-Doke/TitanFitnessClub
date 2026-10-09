@@ -31,6 +31,7 @@ For payment confirmation recovery when a member closes checkout before returning
 
 ## Security and behavior changes
 
+- Web sessions expire after 30 minutes of inactivity. Session cookies are HTTP-only, secure, and use `SameSite=Lax`; forwarded HTTPS headers are recognized for Render's TLS proxy. Spring Security also rotates the session identifier after login and limits referrer data sent to other sites.
 - `/member/**` requires the MEMBER role; other authenticated application routes require ADMIN.
 - Disabled accounts are rejected by Spring Security.
 - Member deactivation marks the member inactive and disables the matching login while retaining associated payment and attendance history.
