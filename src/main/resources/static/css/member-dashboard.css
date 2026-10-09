@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 body{
     margin:0;
     font-family:Arial, Helvetica, sans-serif;
@@ -389,4 +391,85 @@ body { line-height:1.55; }
 @keyframes fadeUp {
     from { opacity:0; transform:translateY(20px); }
     to { opacity:1; transform:translateY(0); }
+}
+
+/* Member portal uses the same shell, card scale and motion as the admin dashboard. */
+body { font-family:'Poppins',sans-serif; background:#121212; color:#F5F5F5; line-height:1.55; }
+.sidebar { width:240px; background:#151515; box-shadow:12px 0 32px rgba(0,0,0,.14); }
+.logo { height:90px; padding:0; display:flex; flex-direction:column; justify-content:center; align-items:center; border-bottom:1px solid #2f2f2f; }
+.logo h2 { font-family:'Cinzel',serif; font-size:30px; letter-spacing:5px; }
+.logo span { font-size:13px; letter-spacing:3px; }
+.sidebar li { margin:5px 15px; padding:0; font-size:.94rem; }
+.sidebar li:hover, .sidebar li.active { background:transparent; }
+.sidebar li a { min-height:48px; gap:16px; padding:14px 18px; border-radius:12px; }
+.sidebar li a:hover { background:#232323; color:#D4AF37; }
+.sidebar li.active a { background:#D4AF37; color:#121212; box-shadow:inset 3px 0 #F4D03F; }
+.sidebar li a i { flex:0 0 22px; width:22px; }
+.logout-form { padding:0; }
+.sidebar .logout { width:calc(100% - 40px); margin:20px; padding:14px; border-radius:12px; background:#A32626; }
+.sidebar .logout:hover { background:#C0392B; }
+
+.main-content { margin:80px 0 0 270px; padding:35px; min-height:calc(100vh - 140px); }
+.topbar {
+    position:fixed; top:0; left:240px; right:0; z-index:999;
+    height:75px; min-height:75px; margin:0; padding:0 35px;
+    border:0; border-bottom:1px solid #2f2f2f; border-radius:0;
+    background:rgba(24,24,24,.96); box-shadow:0 8px 28px rgba(0,0,0,.2);
+    backdrop-filter:blur(14px);
+}
+.topbar .search-box {
+    width:360px; max-width:45vw; min-width:0; height:46px;
+    padding:0 18px; border:1px solid #383838; border-radius:12px;
+    background:#222; color:#eaeaea; font-size:15px;
+}
+.top-right { gap:18px; }
+.top-right > a { width:46px; height:46px; }
+.top-right > a:hover { background:#252525; }
+.top-right > a i { color:#D4AF37; }
+.top-right .avatar { width:46px; height:46px; }
+.dashboard-content > h1, .main-content > h1 {
+    margin:0 0 35px; color:#D4AF37; font-family:'Cinzel',serif;
+    font-size:36px; line-height:1.25; letter-spacing:.02em;
+}
+.cards { grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+.card {
+    min-height:170px; padding:25px; border:1px solid #2f2f2f; border-radius:18px;
+    background:linear-gradient(145deg,#202020,#171717); box-shadow:0 12px 28px rgba(0,0,0,.16);
+    transition:.35s; animation:fadeUp .5s ease;
+}
+.card:nth-child(n) { animation-delay:0s; }
+.card:hover { transform:translateY(-4px); border-color:#D4AF37; box-shadow:0 16px 34px rgba(0,0,0,.24); }
+.card i { margin-bottom:18px; color:#D4AF37; font-size:32px; }
+.card h3 { margin:0 0 10px; color:#9E9E9E; font-family:'Poppins',sans-serif; font-size:1rem; }
+.card p { margin:0; color:#F5F5F5; font-family:'Poppins',sans-serif; font-size:1.15rem; }
+
+@media (max-width:900px) {
+    .sidebar { width:210px; }
+    .main-content { margin-left:220px; padding:26px 22px; }
+    .topbar { left:210px; padding:0 20px; }
+}
+@media (max-width:640px) {
+    .sidebar { width:68px; }
+    .logo { height:72px; padding:0 4px; }
+    .logo h2 { font-size:21px; letter-spacing:2px; }
+    .logo span, .sidebar li a span { display:none; }
+    .sidebar li { margin:5px 8px; }
+    .sidebar li a { justify-content:center; gap:0; padding:13px 8px; }
+    .sidebar li a i { flex:0 0 auto; width:auto; font-size:18px; }
+    .sidebar .logout-form { padding:0; }
+    .sidebar .logout { width:48px; height:46px; margin:14px 10px; padding:0; font-size:0; }
+    .sidebar .logout i { font-size:17px; }
+    .main-content { margin:66px 0 0 68px; padding:22px 14px; }
+    .topbar { left:68px; height:66px; min-height:66px; padding:0 12px; }
+    .topbar .search-box { width:min(210px,48vw); max-width:none; height:40px; padding:0 10px; font-size:13px; }
+    .top-right { gap:5px; }
+    .top-right > a, .top-right .avatar { width:38px; height:38px; }
+    .top-right .profile { gap:0; }
+    .top-right .profile > div:last-child { display:none; }
+    .dashboard-content > h1, .main-content > h1 { margin-bottom:22px; font-size:28px; }
+    .cards { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    .card { min-height:140px; padding:17px; border-radius:14px; }
+    .card i { margin-bottom:12px; font-size:23px; }
+    .card h3 { font-size:.84rem; }
+    .card p { font-size:1rem; }
 }
