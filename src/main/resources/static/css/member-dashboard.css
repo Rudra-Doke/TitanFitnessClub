@@ -328,6 +328,11 @@ body { line-height:1.55; }
     box-shadow:0 12px 32px rgba(0,0,0,.18);
 }
 .card { background:linear-gradient(145deg,#202020,#181818); }
+.card { animation:fadeUp .5s ease both; }
+.card:nth-child(2) { animation-delay:.06s; }
+.card:nth-child(3) { animation-delay:.12s; }
+.card:nth-child(4) { animation-delay:.18s; }
+.card:hover { transform:translateY(-4px); transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease; }
 .card h3 { color:#f0d477; }
 .card p { overflow-wrap:anywhere; }
 .main-content table { width:100%; border-collapse:collapse; }
@@ -379,4 +384,9 @@ body { line-height:1.55; }
 }
 @media (prefers-reduced-motion:reduce) {
     *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+
+@keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
 }
