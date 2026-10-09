@@ -21,12 +21,15 @@ public class RazorpayService {
 
     private final String keyId;
     private final String keySecret;
+    private final String webhookSecret;
     private final RestClient restClient;
 
     public RazorpayService(@Value("${razorpay.key-id:}") String keyId,
-                           @Value("${razorpay.key-secret:}") String keySecret) {
+                           @Value("${razorpay.key-secret:}") String keySecret,
+                           @Value("${razorpay.webhook-secret:}") String webhookSecret) {
         this.keyId = keyId == null ? "" : keyId.trim();
         this.keySecret = keySecret == null ? "" : keySecret.trim();
+        this.webhookSecret = webhookSecret == null ? "" : webhookSecret.trim();
         this.restClient = RestClient.builder().baseUrl(API_BASE).build();
     }
 
@@ -36,6 +39,27 @@ public class RazorpayService {
 
     public String getKeyId() {
         return keyId;
+    }
+
+    public boolean isWebhookConfigured() {
+        return !webhookSecret.isBlank();
+    }
+
+    public boolean verifyWebhookSignature(byte[] body, String signature) {
+        return isValidWebhookSignature(body, signature, webhookSecret);
+    }
+
+    public static boolean isValidWebhookSignature(byte[] body, String signature, String secret) {
+        if (body == null || signature == null || secret == null || secret.isBlank()) return false;
+        try {
+            Mac mac = Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
+            byte[] expected = mac.doFinal(body);
+            byte[] supplied = HexFormat.of().parseHex(signature.trim());
+            return MessageDigest.isEqual(expected, supplied);
+        } catch (IllegalArgumentException | java.security.GeneralSecurityException ex) {
+            return false;
+        }
     }
 
     public String createOrder(Payment payment) {

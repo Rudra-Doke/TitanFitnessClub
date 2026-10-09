@@ -27,6 +27,8 @@ Member registration and renewal payments can be completed through Razorpay Check
 
 To enable checkout, add `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` to the Render web service environment. Start with Razorpay **test mode** keys and test cards. Keep the secret only in Render's environment settings; never add either value to source files or commit history. When the keys are absent, online payment buttons stay disabled and pending payments remain available for staff handling. Production/live payments require the account owner's explicit decision to switch to live keys.
 
+For payment confirmation recovery when a member closes checkout before returning to the app, configure a Razorpay webhook after this version is deployed. Set its URL to `https://titanfitnessclub.onrender.com/webhooks/razorpay`, subscribe to `payment.captured`, and add the webhook's signing secret as `RAZORPAY_WEBHOOK_SECRET` in the linked Render environment group. The webhook secret is separate from `RAZORPAY_KEY_SECRET`; keep it private. Configure matching test-mode webhook settings while using test keys. The endpoint verifies Razorpay's signature and only records a captured INR payment when its saved order and amount match a pending payment.
+
 ## Security and behavior changes
 
 - `/member/**` requires the MEMBER role; other authenticated application routes require ADMIN.

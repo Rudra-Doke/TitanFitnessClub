@@ -23,11 +23,13 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/webhooks/razorpay"))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/",
                                 "/login",
                                 "/register",
+                                "/webhooks/razorpay",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**",
