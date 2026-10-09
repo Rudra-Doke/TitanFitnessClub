@@ -23,6 +23,12 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    public List<Member> searchMembers(String query) {
+        if (query == null || query.isBlank()) return memberRepository.findAll();
+        String term = query.trim();
+        return memberRepository.findByFullNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrMemberIdContainingIgnoreCase(term, term, term);
+    }
+
     public Member saveMember(Member member) {
         return memberRepository.save(member);
     }

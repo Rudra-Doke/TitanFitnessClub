@@ -84,10 +84,11 @@
                 <label>Membership Plan</label>
 
                 <select th:field="*{membershipPlan}">
-                    <option value="Basic">Basic</option>
-                    <option value="Premium">Premium</option>
-                    <option value="Elite">Elite</option>
+                    <option value="">No plan assigned</option>
+                    <option th:each="plan : ${plans}" th:value="${plan.planName}"
+                            th:text="|${plan.planName} — ₹${plan.price} (${plan.durationMonths} months)|"></option>
                 </select>
+                <small>For a member login, ask the member to register and create their own password.</small>
 
             </div>
 

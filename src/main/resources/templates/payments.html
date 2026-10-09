@@ -48,6 +48,7 @@
                 <th>Member</th>
                 <th>Plan</th>
                 <th>Amount</th>
+                <th>Method</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -67,6 +68,7 @@
                 <td th:text="${payment.membershipPlan.planName}"></td>
 
                 <td th:text="'₹' + ${payment.amount}"></td>
+                <td th:text="${payment.paymentMethod}"></td>
 
                 <td th:text="${payment.paymentDate}"></td>
 

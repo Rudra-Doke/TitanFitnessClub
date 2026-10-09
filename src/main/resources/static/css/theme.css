@@ -319,6 +319,16 @@ button{
     font-size:15px;
 
 }
+
+.search-box button{
+    border:0;
+    border-radius:8px;
+    padding:8px 10px;
+    background:#D4AF37;
+    color:#171717;
+    font-weight:700;
+    cursor:pointer;
+}
 .admin-profile{
 
     display:flex;
@@ -508,6 +518,12 @@ button{
     cursor:pointer;
 
     transition:.3s;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#171717;
+    text-decoration:none;
 
 }
 

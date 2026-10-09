@@ -18,8 +18,8 @@
 
 <body>
 
-<div th:replace="fragments/sidebar :: sidebar('members')"></div>
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/sidebar :: sidebar('members')}"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="main-content">
 
@@ -31,6 +31,13 @@
         <i class="fa-solid fa-user-plus"></i>
         Add Member
     </a>
+
+    <form th:action="@{/members}" method="get" class="member-filter" role="search">
+        <label for="memberSearch">Find a member</label>
+        <input id="memberSearch" type="search" name="q" th:value="${searchQuery}" placeholder="Name, email, or member ID">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a th:if="${searchQuery != ''}" th:href="@{/members}" class="btn">Clear</a>
+    </form>
 
     <div class="table-container">
 
@@ -92,12 +99,18 @@
             </tbody>
 
         </table>
+        <p th:if="${#lists.isEmpty(members)}" class="empty-state">No members matched your search.</p>
 
     </div>
 
 </div>
 
-<div th:replace="fragments/footer :: footer"></div>
+<style>
+    .member-filter { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:20px 0; }
+    .member-filter input { min-width:240px; padding:10px 12px; border:1px solid #777; border-radius:6px; }
+</style>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 

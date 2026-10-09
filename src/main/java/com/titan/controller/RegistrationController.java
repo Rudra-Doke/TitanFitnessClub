@@ -146,6 +146,7 @@ public class RegistrationController {
 
         paymentService.savePayment(payment);
 
+        redirectAttributes.addFlashAttribute("registrationSuccess", "Your account was created. Sign in after staff confirms your first payment.");
         return "redirect:/login";
     }
 }

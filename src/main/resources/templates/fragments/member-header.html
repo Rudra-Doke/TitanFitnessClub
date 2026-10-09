@@ -1,24 +1,19 @@
 <div class="topbar" th:fragment="header">
 
-    <div class="search-box">
-        <i class="fa-solid fa-search"></i>
-        <input type="text" placeholder="Search...">
-    </div>
+    <div class="search-box" aria-label="Member portal">Member portal</div>
 
     <div class="top-right">
 
-        <i class="fa-regular fa-bell"></i>
-
-        <i class="fa-regular fa-envelope"></i>
+        <a th:href="@{/member/announcements}" aria-label="Gym announcements" title="Gym announcements">
+            <i class="fa-solid fa-bullhorn"></i>
+        </a>
 
         <div class="profile">
 
-            <div class="avatar">
-                M
-            </div>
+            <a class="avatar" th:href="@{/member/profile}" th:text="${currentMember != null and !#strings.isEmpty(currentMember.fullName) ? #strings.substring(currentMember.fullName, 0, 1).toUpperCase() : 'M'}" aria-label="Open profile">M</a>
 
             <div>
-                <strong>Member</strong><br>
+                <strong th:text="${currentMember != null ? currentMember.fullName : 'Member'}">Member</strong><br>
                 Titan Fitness Club
             </div>
 

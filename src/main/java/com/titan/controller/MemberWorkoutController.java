@@ -30,7 +30,7 @@ public class MemberWorkoutController {
 
         Member member = memberRepository.findByUsername(username)
                 .orElse(null);
-        if (member == null) return "redirect:/member/profile";
+        if (member == null) return "redirect:/login";
 
         List<Workout> workouts =
                 workoutRepository.findByMemberId(member.getId());

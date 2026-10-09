@@ -3,3 +3,6 @@
 .vscode
 target
 *.zip
+*.env
+.env
+application-local.properties

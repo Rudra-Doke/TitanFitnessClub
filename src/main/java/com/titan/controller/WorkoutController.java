@@ -7,6 +7,7 @@ import com.titan.repository.WorkoutRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/workout-plans")
@@ -37,10 +38,14 @@ public class WorkoutController {
             @RequestParam String exercise,
             @RequestParam String sets,
             @RequestParam String reps,
-            @RequestParam(required = false) String notes) {
+            @RequestParam(required = false) String notes,
+            RedirectAttributes redirectAttributes) {
 
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Member member = memberRepository.findById(memberId).orElse(null);
+        if (member == null) {
+            redirectAttributes.addFlashAttribute("formError", "Choose a valid member before saving the workout plan.");
+            return "redirect:/workout-plans";
+        }
 
         Workout workout = new Workout();
         workout.setMember(member);

@@ -20,9 +20,9 @@
 
 <body>
 
-<div th:replace="fragments/sidebar :: sidebar('dashboard')"></div>
+<div th:replace="~{fragments/sidebar :: sidebar('dashboard')}"></div>
 
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="main-content">
 
@@ -88,6 +88,12 @@
 
         </div>
 
+        <div class="dashboard-card">
+            <i class="fa-solid fa-receipt"></i>
+            <h3>Payment Records</h3>
+            <h2 th:text="${totalPayments}">0</h2>
+        </div>
+
     </div>
 
     <!-- QUICK ACTIONS -->
@@ -107,11 +113,29 @@
 
         </a>
 
+        <a th:href="@{/members/add}" class="dashboard-action-btn">
+            <i class="fa-solid fa-user-plus"></i>
+            <div><strong>Add Member</strong><span>Create a member account record</span></div>
+            <i class="fa-solid fa-arrow-right arrow"></i>
+        </a>
+
+        <a th:href="@{/attendance/add}" class="dashboard-action-btn">
+            <i class="fa-solid fa-calendar-check"></i>
+            <div><strong>Record Attendance</strong><span>Log a member visit</span></div>
+            <i class="fa-solid fa-arrow-right arrow"></i>
+        </a>
+
+        <a th:href="@{/payments/add}" class="dashboard-action-btn">
+            <i class="fa-solid fa-money-bill-wave"></i>
+            <div><strong>Record Payment</strong><span>Review or record a member payment</span></div>
+            <i class="fa-solid fa-arrow-right arrow"></i>
+        </a>
+
     </div>
 
 </div>
 
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 

@@ -13,4 +13,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByEmailIgnoreCase(String email);
 
+    boolean existsByEmailIgnoreCaseAndIdNot(String email, Long id);
+
+    java.util.List<Member> findByFullNameContainingIgnoreCaseOrEmailContainingIgnoreCaseOrMemberIdContainingIgnoreCase(
+            String fullName, String email, String memberId);
+
 }

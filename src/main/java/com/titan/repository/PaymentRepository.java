@@ -16,4 +16,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     List<Payment> findByMemberOrderByPaymentDateDesc(Member member);
 
+    java.util.Optional<Payment> findFirstByMemberAndPaymentStatusIgnoreCaseOrderByPaymentDateDesc(Member member, String paymentStatus);
+
 }

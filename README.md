@@ -19,7 +19,7 @@ New member accounts are created through registration. There is no default admin 
 
 The Dockerfile builds with Java 21 and runs the Maven tests before assembling the executable JAR. Configure `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD` in the Render service environment. Use the JDBC URL and credentials for the database actually attached to the service. Render's assigned `PORT` is honored automatically.
 
-The repository has no Render service manifest or deployment URL, so this package cannot establish which commit or database your live service currently uses. Confirm the service's connected repository/branch and latest successful deploy in Render before deploying this copy. The public repository currently exposes a database credential in its tracked configuration; rotate any credential that may still be valid, and remove secrets from future commits.
+The repository has no Render service manifest or deployment URL, so this package cannot establish which commit or database your live service currently uses. Confirm the service's connected repository/branch and latest successful deploy in Render before deploying this copy. A database credential that was previously exposed in Git history has been rotated; it is not included in this package. Rewriting remote history to remove an old value would require a coordinated force-push and is not part of this patch.
 
 ## Security and behavior changes
 
@@ -29,8 +29,13 @@ The repository has no Render service manifest or deployment URL, so this package
 - Registration writes the login, member, and pending payment in one transaction. It validates input and stores the fitness goal entered in the form.
 - Revenue totals include only payments with status `Paid`; registration creates a `Pending` record because no payment processor is integrated.
 - All delete actions use POST forms with Spring Security CSRF protection.
-- Demo credentials and the tracked datasource password were removed from this copy.
+- Members can edit their own contact/profile details and change a password after confirming the current password.
+- Members can request a renewal or plan change. The request is recorded as Pending for staff review; the app does not accept online payments.
+- Member membership dates are calculated from the most recent paid membership record and that plan's duration. Pending requests do not extend a membership.
+- The admin search supports member name, email, and member ID. Dashboard shortcuts open the corresponding admin forms.
+- The member management form uses the plans actually configured by staff rather than a fixed sample list. Adding a member record does not create login credentials; members should register to create their own password.
+- Demo credentials and database secrets are not included in this copy.
 
 ## Verification
 
-Regression tests cover role boundaries, disabled-account enforcement, POST/CSRF behavior, and paid-only revenue. Test configuration uses an in-memory H2 database. Run `mvnw test` (Windows: `mvnw.cmd test`) before deployment.
+Regression tests cover role boundaries, disabled-account enforcement, POST/CSRF behavior, paid-only revenue, profile/password changes, member search, renewal requests, and member dashboard/membership rendering. Test configuration uses an in-memory H2 database. Run `mvnw test` (Windows: `mvnw.cmd test`) before deployment.

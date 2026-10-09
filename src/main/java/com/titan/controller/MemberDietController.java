@@ -30,7 +30,7 @@ public class MemberDietController {
 
         Member member = memberRepository.findByUsername(username)
                 .orElse(null);
-        if (member == null) return "redirect:/member/profile";
+        if (member == null) return "redirect:/login";
 
         List<DietPlan> dietPlans =
                 dietPlanRepository.findByMemberId(member.getId());

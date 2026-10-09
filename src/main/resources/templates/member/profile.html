@@ -13,47 +13,64 @@
 
 <body>
 
-<div th:replace="fragments/member-sidebar :: sidebar"></div>
+<div th:replace="~{fragments/member-sidebar :: sidebar}"></div>
 
 <div class="main-content">
 
-    <div th:replace="fragments/member-header :: header"></div>
+    <div th:replace="~{fragments/member-header :: header}"></div>
 
     <div class="dashboard-content">
 
         <h1>My Profile</h1>
 
+        <p th:if="${profileSuccess}" th:text="${profileSuccess}" role="status" class="notice success"></p>
+        <p th:if="${profileError}" th:text="${profileError}" role="alert" class="notice error"></p>
+        <p th:if="${passwordSuccess}" th:text="${passwordSuccess}" role="status" class="notice success"></p>
+        <p th:if="${passwordError}" th:text="${passwordError}" role="alert" class="notice error"></p>
+
         <div class="card" style="max-width:700px;">
 
-            <h2 th:text="${member.fullName}">Member Name</h2>
-
-            <hr><br>
-
-            <p><strong>Username:</strong>
-                <span th:text="${member.username}"></span>
-            </p>
-
-            <p><strong>Email:</strong>
-                <span th:text="${member.email}"></span>
-            </p>
-
-            <p><strong>Phone:</strong>
-                <span th:text="${member.phone}"></span>
-            </p>
-
-            <p><strong>Gender:</strong>
-                <span th:text="${member.gender}"></span>
-            </p>
-
-            <p><strong>Age:</strong>
-                <span th:text="${member.age}"></span>
-            </p>
-
-            <p><strong>Membership:</strong>
-                <span th:text="${member.membershipPlan}"></span>
-            </p>
+            <h2>Edit your details</h2>
+            <p><strong>Username:</strong> <span th:text="${member.username}"></span> (cannot be changed)</p>
+            <form th:action="@{/member/profile/update}" method="post" class="member-form">
+                <label for="fullName">Full name</label>
+                <input id="fullName" name="fullName" type="text" maxlength="120" required th:value="${member.fullName}">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" maxlength="254" required th:value="${member.email}">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" maxlength="25" required th:value="${member.phone}">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" maxlength="500" rows="3" th:text="${member.address}"></textarea>
+                <label for="fitnessGoal">Fitness goal</label>
+                <input id="fitnessGoal" name="fitnessGoal" type="text" maxlength="120" th:value="${member.fitnessGoal}">
+                <button type="submit" class="member-action">Save profile</button>
+            </form>
 
         </div>
+
+        <div class="card" style="max-width:700px; margin-top:24px;">
+            <h2>Change password</h2>
+            <p>Use at least 10 characters. Your current password is required.</p>
+            <form th:action="@{/member/profile/password}" method="post" class="member-form">
+                <label for="currentPassword">Current password</label>
+                <input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" required>
+                <label for="newPassword">New password</label>
+                <input id="newPassword" name="newPassword" type="password" minlength="10" autocomplete="new-password" required>
+                <label for="confirmPassword">Confirm new password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" minlength="10" autocomplete="new-password" required>
+                <button type="submit" class="member-action">Change password</button>
+            </form>
+        </div>
+
+        <style>
+            .member-form { display:grid; gap:10px; max-width:560px; }
+            .member-form label { color:#ddd; margin-top:8px; }
+            .member-form input, .member-form textarea, .member-form select { width:100%; box-sizing:border-box; padding:12px; color:#fff; background:#121212; border:1px solid #555; border-radius:8px; font:inherit; }
+            .member-action { justify-self:start; margin-top:12px; padding:12px 18px; color:#111; background:#d4af37; border:0; border-radius:8px; font-weight:700; cursor:pointer; }
+            .notice { padding:12px 16px; border-radius:8px; max-width:660px; }
+            .notice.success { background:#123b25; color:#9de2b4; }
+            .notice.error { background:#471d1d; color:#ffb0b0; }
+        </style>
 
     </div>
 

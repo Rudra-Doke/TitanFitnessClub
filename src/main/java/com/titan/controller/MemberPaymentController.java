@@ -32,7 +32,7 @@ public class MemberPaymentController {
 
         Member member = memberRepository.findByUsername(username)
                 .orElse(null);
-        if (member == null) return "redirect:/member/profile";
+        if (member == null) return "redirect:/login";
         List<Payment> payments = paymentRepository.findByMemberOrderByPaymentDateDesc(member);
 
         model.addAttribute("payments", payments);

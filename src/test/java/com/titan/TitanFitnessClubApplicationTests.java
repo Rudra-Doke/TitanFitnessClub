@@ -16,16 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,6 +42,7 @@ class TitanFitnessClubApplicationTests {
     @Autowired private MembershipPlanRepository planRepository;
     @Autowired private PaymentRepository paymentRepository;
     @Autowired private AttendanceRepository attendanceRepository;
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Test
     void contextLoads() { }
@@ -194,5 +199,144 @@ class TitanFitnessClubApplicationTests {
         assertEquals(1, payments.size());
         assertEquals("Pending", payments.get(0).getPaymentStatus());
         assertEquals("General Fitness", member.getFitnessGoal());
+    }
+
+    @Test
+    @Transactional
+    void memberCanUpdateOnlyTheirOwnProfileFields() throws Exception {
+        String username = "profile-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("PROFILE" + java.util.UUID.randomUUID());
+        member.setFullName("Before Name");
+        member.setPhone("1234567890");
+        member.setUsername(username);
+        member.setEmail(username + "@example.test");
+        memberRepository.saveAndFlush(member);
+
+        mockMvc.perform(post("/member/profile/update").with(user(username).roles("MEMBER")).with(csrf())
+                        .param("fullName", "After Name")
+                        .param("email", "after-" + username + "@example.test")
+                        .param("phone", "9876543210")
+                        .param("address", "Gym Street")
+                        .param("fitnessGoal", "Strength"))
+                .andExpect(status().is3xxRedirection());
+
+        Member updated = memberRepository.findByUsername(username).orElseThrow();
+        assertEquals("After Name", updated.getFullName());
+        assertEquals("Gym Street", updated.getAddress());
+    }
+
+    @Test
+    @Transactional
+    void memberCanChangePasswordAfterVerifyingCurrentPassword() throws Exception {
+        String username = "password-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        User account = new User();
+        account.setUsername(username);
+        account.setPassword(passwordEncoder.encode("current-password"));
+        account.setRole(Role.MEMBER);
+        userRepository.saveAndFlush(account);
+
+        mockMvc.perform(post("/member/profile/password").with(user(username).roles("MEMBER")).with(csrf())
+                        .param("currentPassword", "current-password")
+                        .param("newPassword", "replacement-password")
+                        .param("confirmPassword", "replacement-password"))
+                .andExpect(status().is3xxRedirection());
+
+        assertTrue(passwordEncoder.matches("replacement-password", userRepository.findByUsername(username).orElseThrow().getPassword()));
+    }
+
+    @Test
+    @Transactional
+    void memberCanRequestPlanRenewalWithoutMarkingItPaid() throws Exception {
+        String username = "renewal-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("RENEW" + java.util.UUID.randomUUID());
+        member.setFullName("Renewal Member");
+        member.setPhone("1234567890");
+        member.setUsername(username);
+        memberRepository.saveAndFlush(member);
+        MembershipPlan plan = new MembershipPlan();
+        plan.setPlanName("Renewal Plan " + java.util.UUID.randomUUID());
+        plan.setPrice(100.0);
+        plan.setDurationMonths(1);
+        plan.setStatus("Active");
+        planRepository.saveAndFlush(plan);
+
+        mockMvc.perform(post("/member/membership/request").with(user(username).roles("MEMBER")).with(csrf())
+                        .param("planId", plan.getId().toString()))
+                .andExpect(status().is3xxRedirection());
+
+        var payments = paymentRepository.findByMemberOrderByPaymentDateDesc(member);
+        assertEquals(1, payments.size());
+        assertEquals("Pending", payments.get(0).getPaymentStatus());
+        assertEquals("Renewal Request", payments.get(0).getPaymentMethod());
+    }
+
+    @Test
+    @Transactional
+    void adminCanSearchMembersByNameOrId() throws Exception {
+        String memberName = "Searchable " + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("SEARCH" + java.util.UUID.randomUUID());
+        member.setFullName(memberName);
+        member.setPhone("1234567890");
+        memberRepository.saveAndFlush(member);
+
+        mockMvc.perform(get("/members").with(user("admin").roles("ADMIN")).param("q", memberName))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(memberName)));
+    }
+
+    @Test
+    @Transactional
+    void memberDashboardRendersAccountSpecificSummary() throws Exception {
+        String username = "dashboard-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("DASH" + java.util.UUID.randomUUID());
+        member.setFullName("Dashboard Test Member");
+        member.setPhone("1234567890");
+        member.setUsername(username);
+        member.setMembershipPlan("Legacy Plan");
+        memberRepository.saveAndFlush(member);
+
+        mockMvc.perform(get("/member/dashboard").with(user(username).roles("MEMBER")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Welcome, Dashboard Test Member!")))
+                .andExpect(content().string(containsString("Legacy Plan")))
+                .andExpect(content().string(containsString("No payments recorded")));
+    }
+
+    @Test
+    @Transactional
+    void membershipPageRendersPlanDatesFromMostRecentPaidMembership() throws Exception {
+        String username = "membership-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("MEMBERSHIP" + java.util.UUID.randomUUID());
+        member.setFullName("Membership Test Member");
+        member.setPhone("1234567890");
+        member.setUsername(username);
+        member.setJoinDate(java.time.LocalDate.now().minusMonths(8));
+        member.setMembershipPlan("Old Plan");
+        memberRepository.saveAndFlush(member);
+        MembershipPlan plan = new MembershipPlan();
+        plan.setPlanName("Current Plan " + java.util.UUID.randomUUID().toString().substring(0, 6));
+        plan.setPrice(100.0);
+        plan.setDurationMonths(3);
+        plan.setStatus("Active");
+        planRepository.saveAndFlush(plan);
+        Payment paid = new Payment();
+        paid.setMember(member);
+        paid.setMembershipPlan(plan);
+        paid.setAmount(100.0);
+        paid.setPaymentDate(java.time.LocalDate.now().minusMonths(1));
+        paid.setPaymentMethod("Cash");
+        paid.setPaymentStatus("Paid");
+        paymentRepository.saveAndFlush(paid);
+
+        mockMvc.perform(get("/member/membership").with(user(username).roles("MEMBER")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(plan.getPlanName())))
+                .andExpect(content().string(containsString("Active")))
+                .andExpect(content().string(containsString("Renew or change your plan")));
     }
 }
