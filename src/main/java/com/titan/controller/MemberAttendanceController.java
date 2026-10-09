@@ -30,8 +30,8 @@ public class MemberAttendanceController {
 
         String username = authentication.getName();
 
-        Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Member member = memberRepository.findByUsername(username).orElse(null);
+        if (member == null) return "redirect:/login";
 
         List<Attendance> attendanceList =
                 attendanceRepository.findByMemberOrderByAttendanceDateDesc(member);

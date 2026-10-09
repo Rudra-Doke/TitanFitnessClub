@@ -24,21 +24,22 @@
 
         <div class="profile-card">
 
-            <h2>Premium Membership</h2>
+            <h2 th:text="|${planName} Membership|">Membership</h2>
 
             <div class="profile-info">
 
-                <p><strong>Plan:</strong> Premium</p>
+                <p><strong>Plan:</strong> <span th:text="${planName}">Plan</span></p>
 
-                <p><strong>Duration:</strong> 12 Months</p>
+                <p><strong>Duration:</strong> <span th:text="${duration}">Duration</span></p>
 
-                <p><strong>Start Date:</strong> 01 Jan 2026</p>
+                <p><strong>Start Date:</strong> <span th:text="${startDate}">Start date</span></p>
 
-                <p><strong>Expiry Date:</strong> 31 Dec 2026</p>
+                <p><strong>Expiry Date:</strong> <span th:text="${expiryDate}">Expiry date</span></p>
 
                 <p><strong>Status:</strong>
-                    <span style="color:#4CAF50;">Active</span>
+                    <span th:text="${membershipStatus}">Status</span>
                 </p>
+                <p><strong>Latest payment:</strong> <span th:text="${latestPaymentStatus}">Payment status</span></p>
 
             </div>
 

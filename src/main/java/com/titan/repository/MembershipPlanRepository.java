@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MembershipPlanRepository extends JpaRepository<MembershipPlan, Long> {
 
+    java.util.Optional<MembershipPlan> findByPlanNameIgnoreCase(String planName);
+
 }
