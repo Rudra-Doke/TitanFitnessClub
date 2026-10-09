@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Membership</title>
 
     <link rel="stylesheet" th:href="@{/css/member/membership.css}">
@@ -50,7 +51,7 @@
 
         <div class="profile-card" style="margin-top:24px;">
             <h2>Renew or change your plan</h2>
-            <p>Send a request to the gym. Staff will confirm the plan after payment at the club; this app does not take online payments.</p>
+            <p>Choose a membership plan and complete the payment securely online. Your plan becomes active after the payment is confirmed.</p>
             <p th:if="${renewalPending}" role="status">You already have a request waiting for staff review.</p>
             <form th:unless="${renewalPending}" th:action="@{/member/membership/request}" method="post" class="membership-form">
                 <label for="planId">Choose a plan</label>
@@ -59,8 +60,26 @@
                     <option th:each="availablePlan : ${plans}" th:value="${availablePlan.id}"
                             th:text="|${availablePlan.planName} — ₹${availablePlan.price} (${availablePlan.durationMonths} months)|"></option>
                 </select>
-                <button type="submit" class="membership-action">Send request</button>
+                <button type="submit" class="membership-action">Continue to payment</button>
             </form>
+        </div>
+
+        <div class="profile-card pending-payments" style="margin-top:24px;" th:if="${!#lists.isEmpty(pendingPayments)}">
+            <h2>Payments awaiting completion</h2>
+            <p th:if="${!razorpayConfigured}" class="payment-unavailable" role="status">
+                Online checkout is not configured yet. Please contact the gym to complete these payments.
+            </p>
+            <p th:if="${razorpayConfigured}" class="payment-help">Payments are processed securely by Razorpay. Your membership updates after payment confirmation.</p>
+            <div class="pending-payment-row" th:each="pendingPayment : ${pendingPayments}">
+                <div>
+                    <strong th:text="${pendingPayment.membershipPlan.planName}">Plan</strong>
+                    <span th:text="'₹' + ${#numbers.formatDecimal(pendingPayment.amount, 1, 2)}">₹0.00</span>
+                </div>
+                <button type="button" class="membership-action pay-online-button"
+                        th:if="${razorpayConfigured}"
+                        th:attr="data-payment-id=${pendingPayment.id}">Pay online</button>
+            </div>
+            <p class="checkout-message" role="status" aria-live="polite"></p>
         </div>
 
         <style>
@@ -70,11 +89,23 @@
             .membership-notice { padding:12px 16px; border-radius:8px; }
             .membership-notice.success { background:#123b25; color:#9de2b4; }
             .membership-notice.error { background:#471d1d; color:#ffb0b0; }
+            .payment-help { color:#c7c7c7; }
+            .payment-unavailable { color:#ffcf70; }
+            .pending-payment-row { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 0; border-top:1px solid #393939; }
+            .pending-payment-row > div { display:flex; flex-direction:column; gap:6px; }
+            .checkout-message { min-height:1.4em; color:#ffcf70; }
+            .membership-action:disabled { opacity:.65; cursor:wait; }
+            @media(max-width:600px) { .pending-payment-row { align-items:flex-start; flex-direction:column; } }
         </style>
 
     </div>
 
 </div>
+
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script th:src="@{/js/razorpay-checkout.js}" defer></script>
 
 </body>
 </html>

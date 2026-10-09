@@ -28,6 +28,12 @@ public class Payment {
 
     private String paymentStatus;
 
+    @Column(unique = true)
+    private String razorpayOrderId;
+
+    @Column(unique = true)
+    private String razorpayPaymentId;
+
     @Transient
     private Long memberId;
 
@@ -92,6 +98,14 @@ public class Payment {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    public String getRazorpayOrderId() { return razorpayOrderId; }
+
+    public void setRazorpayOrderId(String razorpayOrderId) { this.razorpayOrderId = razorpayOrderId; }
+
+    public String getRazorpayPaymentId() { return razorpayPaymentId; }
+
+    public void setRazorpayPaymentId(String razorpayPaymentId) { this.razorpayPaymentId = razorpayPaymentId; }
 
     public Long getMemberId() { return memberId; }
 

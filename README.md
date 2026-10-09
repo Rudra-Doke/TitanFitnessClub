@@ -21,16 +21,22 @@ The Dockerfile builds with Java 21 and runs the Maven tests before assembling th
 
 The repository has no Render service manifest or deployment URL, so this package cannot establish which commit or database your live service currently uses. Confirm the service's connected repository/branch and latest successful deploy in Render before deploying this copy. A database credential that was previously exposed in Git history has been rotated; it is not included in this package. Rewriting remote history to remove an old value would require a coordinated force-push and is not part of this patch.
 
+### Online membership payments
+
+Member registration and renewal payments can be completed through Razorpay Checkout. The server creates each order from the saved membership plan amount, verifies Razorpay's checkout signature, and checks with Razorpay that the payment is captured and matches the order amount before recording it as Paid. In-club payments can still be recorded by staff.
+
+To enable checkout, add `RAZORPAY_KEY_ID` and `RAZORPAY_KEY_SECRET` to the Render web service environment. Start with Razorpay **test mode** keys and test cards. Keep the secret only in Render's environment settings; never add either value to source files or commit history. When the keys are absent, online payment buttons stay disabled and pending payments remain available for staff handling. Production/live payments require the account owner's explicit decision to switch to live keys.
+
 ## Security and behavior changes
 
 - `/member/**` requires the MEMBER role; other authenticated application routes require ADMIN.
 - Disabled accounts are rejected by Spring Security.
 - Member deactivation marks the member inactive and disables the matching login while retaining associated payment and attendance history.
 - Registration writes the login, member, and pending payment in one transaction. It validates input and stores the fitness goal entered in the form.
-- Revenue totals include only payments with status `Paid`; registration creates a `Pending` record because no payment processor is integrated.
+- Revenue totals include only payments with status `Paid`; new registrations and renewals stay `Pending` until Razorpay confirms a captured payment or staff records an in-club payment.
 - All delete actions use POST forms with Spring Security CSRF protection.
 - Members can edit their own contact/profile details and change a password after confirming the current password.
-- Members can request a renewal or plan change. The request is recorded as Pending for staff review; the app does not accept online payments.
+- Members can request a renewal or plan change and pay pending registration/renewal records through Razorpay Checkout when keys are configured.
 - Member membership dates are calculated from the most recent paid membership record and that plan's duration. Pending requests do not extend a membership.
 - The admin search supports member name, email, and member ID. Dashboard shortcuts open the corresponding admin forms.
 - The member management form uses the plans actually configured by staff rather than a fixed sample list. Adding a member record does not create login credentials; members should register to create their own password.

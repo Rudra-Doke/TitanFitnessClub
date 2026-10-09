@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Payments</title>
 
@@ -16,15 +17,17 @@
 
 <body>
 
-<div th:replace="fragments/member-sidebar :: sidebar"></div>
+<div th:replace="~{fragments/member-sidebar :: sidebar}"></div>
 
 <div class="main-content">
 
-    <div th:replace="fragments/member-header :: header"></div>
+    <div th:replace="~{fragments/member-header :: header}"></div>
 
     <div class="dashboard-content">
 
         <h1>PAYMENTS</h1>
+
+        <p class="checkout-message" role="status" aria-live="polite"></p>
 
         <div class="payment-history">
 
@@ -39,6 +42,7 @@
                     <th>Amount</th>
                     <th>Method</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
 
@@ -69,11 +73,20 @@
                         </span>
                     </td>
 
+                    <td>
+                        <button type="button" class="membership-action pay-online-button"
+                                th:if="${razorpayConfigured and #strings.equalsIgnoreCase(payment.paymentStatus, 'Pending')}"
+                                th:attr="data-payment-id=${payment.id}">Pay online</button>
+                        <span th:if="${!razorpayConfigured and #strings.equalsIgnoreCase(payment.paymentStatus, 'Pending')}"
+                              class="payment-unavailable">Contact the gym to pay</span>
+                        <span th:if="${!#strings.equalsIgnoreCase(payment.paymentStatus, 'Pending')}">—</span>
+                    </td>
+
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(payments)}">
 
-                    <td colspan="5" class="no-payments">
+                    <td colspan="6" class="no-payments">
                         No payment records found.
                     </td>
 
@@ -88,6 +101,11 @@
     </div>
 
 </div>
+
+<meta name="_csrf" th:content="${_csrf.token}">
+<meta name="_csrf_header" th:content="${_csrf.headerName}">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script th:src="@{/js/razorpay-checkout.js}" defer></script>
 
 </body>
 

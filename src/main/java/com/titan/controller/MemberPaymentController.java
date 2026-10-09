@@ -4,6 +4,7 @@ import com.titan.entity.Member;
 import com.titan.entity.Payment;
 import com.titan.repository.MemberRepository;
 import com.titan.repository.PaymentRepository;
+import com.titan.service.RazorpayService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +17,16 @@ public class MemberPaymentController {
 
     private final PaymentRepository paymentRepository;
     private final MemberRepository memberRepository;
+    private final RazorpayService razorpayService;
 
     public MemberPaymentController(
             PaymentRepository paymentRepository,
-            MemberRepository memberRepository) {
+            MemberRepository memberRepository,
+            RazorpayService razorpayService) {
 
         this.paymentRepository = paymentRepository;
         this.memberRepository = memberRepository;
+        this.razorpayService = razorpayService;
     }
 
     @GetMapping("/member/payments")
@@ -36,6 +40,7 @@ public class MemberPaymentController {
         List<Payment> payments = paymentRepository.findByMemberOrderByPaymentDateDesc(member);
 
         model.addAttribute("payments", payments);
+        model.addAttribute("razorpayConfigured", razorpayService.isConfigured());
 
         return "member/payments";
     }

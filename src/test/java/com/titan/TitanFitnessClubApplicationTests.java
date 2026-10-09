@@ -339,4 +339,36 @@ class TitanFitnessClubApplicationTests {
                 .andExpect(content().string(containsString("Active")))
                 .andExpect(content().string(containsString("Renew or change your plan")));
     }
+
+    @Test
+    @Transactional
+    void memberPaymentsPageShowsPendingPaymentAndUnavailableCheckoutClearly() throws Exception {
+        String username = "pending-payment-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+        Member member = new Member();
+        member.setMemberId("PENDING" + java.util.UUID.randomUUID());
+        member.setFullName("Pending Payment Member");
+        member.setPhone("1234567890");
+        member.setUsername(username);
+        memberRepository.saveAndFlush(member);
+        MembershipPlan plan = new MembershipPlan();
+        plan.setPlanName("Pending Plan " + java.util.UUID.randomUUID().toString().substring(0, 6));
+        plan.setPrice(123.45);
+        plan.setDurationMonths(1);
+        plan.setStatus("Active");
+        planRepository.saveAndFlush(plan);
+        Payment pending = new Payment();
+        pending.setMember(member);
+        pending.setMembershipPlan(plan);
+        pending.setAmount(123.45);
+        pending.setPaymentDate(java.time.LocalDate.now());
+        pending.setPaymentMethod("Registration");
+        pending.setPaymentStatus("Pending");
+        paymentRepository.saveAndFlush(pending);
+
+        mockMvc.perform(get("/member/payments").with(user(username).roles("MEMBER")))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(plan.getPlanName())))
+                .andExpect(content().string(containsString("₹123.45")))
+                .andExpect(content().string(containsString("Contact the gym to pay")));
+    }
 }

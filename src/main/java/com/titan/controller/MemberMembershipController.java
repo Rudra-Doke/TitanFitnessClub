@@ -5,6 +5,7 @@ import com.titan.repository.MemberRepository;
 import com.titan.repository.MembershipPlanRepository;
 import com.titan.repository.PaymentRepository;
 import com.titan.service.PaymentService;
+import com.titan.service.RazorpayService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,13 +22,16 @@ public class MemberMembershipController {
     private final MembershipPlanRepository planRepository;
     private final PaymentRepository paymentRepository;
     private final PaymentService paymentService;
+    private final RazorpayService razorpayService;
 
     public MemberMembershipController(MemberRepository memberRepository, MembershipPlanRepository planRepository,
-                                      PaymentRepository paymentRepository, PaymentService paymentService) {
+                                      PaymentRepository paymentRepository, PaymentService paymentService,
+                                      RazorpayService razorpayService) {
         this.memberRepository = memberRepository;
         this.planRepository = planRepository;
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
+        this.razorpayService = razorpayService;
     }
 
     @GetMapping("/member/membership")
@@ -52,6 +56,10 @@ public class MemberMembershipController {
                 .findFirst().map(p -> p.getPaymentStatus()).orElse("No payments recorded"));
         model.addAttribute("plans", planRepository.findAll().stream()
                 .filter(p -> p.getStatus() == null || !"inactive".equalsIgnoreCase(p.getStatus())).toList());
+        model.addAttribute("pendingPayments", paymentRepository.findByMemberOrderByPaymentDateDesc(member).stream()
+                .filter(p -> "Pending".equalsIgnoreCase(p.getPaymentStatus())).toList());
+        model.addAttribute("razorpayConfigured", razorpayService.isConfigured());
+        model.addAttribute("razorpayKeyId", razorpayService.getKeyId());
         model.addAttribute("renewalPending", paymentRepository.findByMemberOrderByPaymentDateDesc(member).stream()
                 .anyMatch(p -> "Pending".equalsIgnoreCase(p.getPaymentStatus()) && "Renewal Request".equalsIgnoreCase(p.getPaymentMethod())));
         return "member/membership";
@@ -82,7 +90,7 @@ public class MemberMembershipController {
         payment.setPaymentMethod("Renewal Request");
         payment.setPaymentStatus("Pending");
         paymentService.savePayment(payment);
-        redirectAttributes.addFlashAttribute("membershipSuccess", "Your request was sent to the gym. Staff will confirm it after payment.");
+        redirectAttributes.addFlashAttribute("membershipSuccess", "Your membership request is ready. Complete the payment below to activate it.");
         return "redirect:/member/membership";
     }
 }
