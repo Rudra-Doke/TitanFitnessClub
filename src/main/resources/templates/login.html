@@ -30,6 +30,8 @@
         Titan Fitness Club
     </h2>
 
+    <p th:if="${param.error}" class="text-danger" role="alert">Invalid username or password, or the account is disabled.</p>
+
     <form th:action="@{/login}" method="post">
 
         <div class="mb-3">

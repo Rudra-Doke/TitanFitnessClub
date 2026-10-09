@@ -28,6 +28,12 @@ public class Payment {
 
     private String paymentStatus;
 
+    @Transient
+    private Long memberId;
+
+    @Transient
+    private Long membershipPlanId;
+
     public Payment() {
     }
 
@@ -86,4 +92,12 @@ public class Payment {
     public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
+
+    public Long getMemberId() { return memberId; }
+
+    public void setMemberId(Long memberId) { this.memberId = memberId; }
+
+    public Long getMembershipPlanId() { return membershipPlanId; }
+
+    public void setMembershipPlanId(Long membershipPlanId) { this.membershipPlanId = membershipPlanId; }
 }

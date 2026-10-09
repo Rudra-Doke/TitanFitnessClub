@@ -85,15 +85,13 @@
 
                         </a>
 
-                        <a class="btn btn-danger"
-                           th:href="@{/trainers/delete/{id}(id=${trainer.id})}"
-                           onclick="return confirm('Delete this trainer?')">
+                        <form method="post" th:action="@{/trainers/delete/{id}(id=${trainer.id})}" onsubmit="return confirm('Delete this trainer?')" class="inline-form"><button type="submit" class="btn btn-danger">
 
                             <i class="fa-solid fa-trash"></i>
 
                             Delete
 
-                        </a>
+                        </button></form>
 
                     </div>
 

@@ -40,7 +40,7 @@ public class MembershipPlanController {
         return "plan-form";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deletePlan(@PathVariable Long id) {
         service.deletePlan(id);
         return "redirect:/plans";

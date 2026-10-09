@@ -55,7 +55,7 @@ public class WorkoutController {
         return "redirect:/workout-plans";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteWorkout(@PathVariable Long id) {
 
         workoutRepository.deleteById(id);

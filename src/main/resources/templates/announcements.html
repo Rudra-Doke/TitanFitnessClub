@@ -139,15 +139,14 @@
 
                     <td class="announcement-actions">
 
-                        <a th:href="@{/announcements/delete/{id}(id=${announcement.id})}"
-                           class="btn-danger"
-                           onclick="return confirm('Delete this announcement?')">
+                        <form method="post" th:action="@{/announcements/delete/{id}(id=${announcement.id})}" onsubmit="return confirm('Delete this announcement?')" class="inline-form"><button type="submit"
+                           class="btn-danger">
 
                             <i class="fa-solid fa-trash"></i>
 
                             Delete
 
-                        </a>
+                        </button></form>
 
                     </td>
 

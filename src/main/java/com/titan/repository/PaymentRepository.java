@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p")
+    @Query("SELECT COALESCE(SUM(p.amount), 0) FROM Payment p WHERE LOWER(p.paymentStatus) = 'paid'")
     Double getTotalRevenue();
 
     List<Payment> findByMemberOrderByPaymentDateDesc(Member member);

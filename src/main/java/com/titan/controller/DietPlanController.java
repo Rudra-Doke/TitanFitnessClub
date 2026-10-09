@@ -61,7 +61,7 @@ public class DietPlanController {
         return "redirect:/diet-plans";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteDietPlan(@PathVariable Long id) {
 
         dietPlanService.deleteDietPlan(id);

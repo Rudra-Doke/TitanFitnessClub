@@ -44,13 +44,16 @@ public class AttendanceController {
 
     @PostMapping("/save")
     public String saveAttendance(@ModelAttribute Attendance attendance) {
-
+        if (attendance.getMemberId() == null) return "redirect:/attendance/add";
+        var member = memberService.getMember(attendance.getMemberId());
+        if (member == null) return "redirect:/attendance/add";
+        attendance.setMember(member);
         attendanceService.saveAttendance(attendance);
 
         return "redirect:/attendance";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteAttendance(@PathVariable Long id) {
 
         attendanceService.deleteAttendance(id);

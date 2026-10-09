@@ -635,3 +635,5 @@ button{
     text-decoration: none;
     box-sizing: border-box;
 }
+form.inline-form { display: inline; margin: 0; }
+.error-message { color: #b42318; margin: 1rem 0; }

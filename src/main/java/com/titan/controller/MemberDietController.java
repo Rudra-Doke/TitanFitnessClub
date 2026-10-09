@@ -29,7 +29,8 @@ public class MemberDietController {
         String username = authentication.getName();
 
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
+                .orElse(null);
+        if (member == null) return "redirect:/member/profile";
 
         List<DietPlan> dietPlans =
                 dietPlanRepository.findByMemberId(member.getId());

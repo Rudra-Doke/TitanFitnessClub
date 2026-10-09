@@ -52,7 +52,7 @@ public class EquipmentController {
         return "equipment-form";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteEquipment(@PathVariable Long id) {
 
         service.deleteEquipment(id);

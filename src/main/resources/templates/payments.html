@@ -85,15 +85,13 @@
 
                         </a>
 
-                        <a class="btn btn-danger"
-                           th:href="@{/payments/delete/{id}(id=${payment.id})}"
-                           onclick="return confirm('Delete this payment?')">
+                        <form method="post" th:action="@{/payments/delete/{id}(id=${payment.id})}" onsubmit="return confirm('Delete this payment?')" class="inline-form"><button type="submit" class="btn btn-danger">
 
                             <i class="fa-solid fa-trash"></i>
 
                             Delete
 
-                        </a>
+                        </button></form>
 
                     </div>
 

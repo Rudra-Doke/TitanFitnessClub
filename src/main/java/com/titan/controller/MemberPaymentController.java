@@ -31,7 +31,8 @@ public class MemberPaymentController {
         String username = authentication.getName();
 
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Member not found"));
+                .orElse(null);
+        if (member == null) return "redirect:/member/profile";
         List<Payment> payments = paymentRepository.findByMemberOrderByPaymentDateDesc(member);
 
         model.addAttribute("payments", payments);

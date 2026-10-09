@@ -50,7 +50,7 @@ public class TrainerController {
         return "trainer-form";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteTrainer(@PathVariable Long id) {
 
         service.deleteTrainer(id);

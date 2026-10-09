@@ -78,12 +78,10 @@
                             Edit
                         </a>
 
-                        <a class="btn btn-danger"
-                           th:href="@{/members/delete/{id}(id=${member.id})}"
-                           onclick="return confirm('Delete this member?')">
+                        <form method="post" th:action="@{/members/delete/{id}(id=${member.id})}" onsubmit="return confirm('Deactivate this member and their account?')" class="inline-form"><button type="submit" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
-                            Delete
-                        </a>
+                            Deactivate
+                        </button></form>
 
                     </div>
 

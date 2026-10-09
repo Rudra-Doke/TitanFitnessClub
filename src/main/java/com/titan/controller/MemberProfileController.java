@@ -21,11 +21,7 @@ public class MemberProfileController {
 
         String username = authentication.getName();
 
-        System.out.println("LOGGED-IN USERNAME = " + username);
-
         Member member = memberService.getMemberByUsername(username);
-
-        System.out.println("FOUND MEMBER = " + member);;
 
         if (member == null) {
             return "redirect:/member/dashboard";

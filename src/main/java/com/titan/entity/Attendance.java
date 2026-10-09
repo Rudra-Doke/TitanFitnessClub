@@ -25,6 +25,9 @@ public class Attendance {
 
     private String status;
 
+    @Transient
+    private Long memberId;
+
     public Attendance() {
     }
 
@@ -75,4 +78,8 @@ public class Attendance {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Long getMemberId() { return memberId; }
+
+    public void setMemberId(Long memberId) { this.memberId = memberId; }
 }

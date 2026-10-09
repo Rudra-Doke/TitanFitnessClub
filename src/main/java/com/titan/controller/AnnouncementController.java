@@ -35,7 +35,7 @@ public class AnnouncementController {
     }
 
     // ADMIN - delete announcement
-    @GetMapping("/announcements/delete/{id}")
+    @PostMapping("/announcements/delete/{id}")
     public String deleteAnnouncement(@PathVariable Long id) {
 
         announcementRepository.deleteById(id);

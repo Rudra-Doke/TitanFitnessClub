@@ -1,6 +1,5 @@
 package com.titan.config;
 
-import com.titan.entity.Role;
 import com.titan.entity.User;
 import com.titan.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -22,30 +21,16 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        if (!userRepository.existsByUsername("admin")) {
+        String username = System.getenv("TITAN_SEED_ADMIN_USERNAME");
+        String password = System.getenv("TITAN_SEED_ADMIN_PASSWORD");
+        if (username == null || username.isBlank() || password == null || password.isBlank()) return;
+        if (userRepository.existsByUsername(username)) return;
 
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRole(Role.ADMIN);
-            admin.setEnabled(true);
-
-            userRepository.save(admin);
-
-            System.out.println("Admin created successfully.");
-        }
-
-        if (!userRepository.existsByUsername("member")) {
-
-            User member = new User();
-            member.setUsername("member");
-            member.setPassword(passwordEncoder.encode("member123"));
-            member.setRole(Role.MEMBER);
-            member.setEnabled(true);
-
-            userRepository.save(member);
-
-            System.out.println("Member created successfully.");
-        }
+        User admin = new User();
+        admin.setUsername(username.trim());
+        admin.setPassword(passwordEncoder.encode(password));
+        admin.setRole(com.titan.entity.Role.ADMIN);
+        admin.setEnabled(true);
+        userRepository.save(admin);
     }
 }

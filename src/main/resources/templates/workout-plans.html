@@ -167,14 +167,12 @@
 
                     <div class="action-buttons">
 
-                        <a class="btn btn-danger"
-                           th:href="@{/workout-plans/delete/{id}(id=${workout.id})}"
-                           onclick="return confirm('Delete this workout?')">
+                        <form method="post" th:action="@{/workout-plans/delete/{id}(id=${workout.id})}" onsubmit="return confirm('Delete this workout?')" class="inline-form"><button type="submit" class="btn btn-danger">
 
                             <i class="fa-solid fa-trash"></i>
                             Delete
 
-                        </a>
+                        </button></form>
 
                     </div>
 

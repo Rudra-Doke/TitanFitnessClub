@@ -50,7 +50,7 @@ public class MemberController {
         return "member-form";
     }
 
-    @GetMapping("/members/delete/{id}")
+    @PostMapping("/members/delete/{id}")
     public String deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
         return "redirect:/members";

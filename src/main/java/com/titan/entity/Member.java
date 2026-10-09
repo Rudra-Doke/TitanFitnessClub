@@ -31,6 +31,8 @@ public class Member {
 
     private String address;
 
+    private String fitnessGoal;
+
     private LocalDate joinDate;
 
     public String getUsername() {
@@ -115,6 +117,10 @@ public class Member {
     public String getAddress() {
         return address;
     }
+
+    public String getFitnessGoal() { return fitnessGoal; }
+
+    public void setFitnessGoal(String fitnessGoal) { this.fitnessGoal = fitnessGoal; }
 
     public void setAddress(String address) {
         this.address = address;
