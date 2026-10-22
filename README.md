@@ -25,8 +25,8 @@ Administrators can manage members, plans, trainers, equipment, attendance, payme
 
 ## Links
 
-- Live demo: [titanfitnessclub.onrender.com](https://titanfitnessclub.onrender.com/)
-- GitHub source: [Rudra-Doke/TitanFitnessClub](https://github.com/Rudra-Doke/TitanFitnessClub)
+- Live demo: [https://titanfitnessclub.onrender.com/](https://titanfitnessclub.onrender.com/)
+- GitHub source: [https://github.com/Rudra-Doke/TitanFitnessClub](https://github.com/Rudra-Doke/TitanFitnessClub)
 
 ## Run locally
 
