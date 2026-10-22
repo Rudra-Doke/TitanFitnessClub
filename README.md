@@ -1,6 +1,32 @@
-# Titan Fitness Club (patched)
+# Titan Fitness Club
 
-This is a repaired copy of the top-level Spring Boot project from the supplied `TitanFitnessClub-main.zip`. The original archive and synced `sources/` files were left unchanged.
+Titan Fitness Club is a web application for managing gym operations and member services. It provides separate administrator and member areas for handling memberships, attendance, payments, and fitness information.
+
+## Overview
+
+Administrators can manage members, plans, trainers, equipment, attendance, payments, announcements, and reports. Members can view their membership, attendance, payment history, workout and diet plans, and gym announcements. Online registration and renewal checkout is available when Razorpay is configured; staff can also record in-club payments.
+
+## Key features
+
+- Role-protected administrator and member areas
+- Member registration, profile management, membership plans, and renewal requests
+- Attendance records, workout plans, diet plans, and announcements
+- Staff-managed payments and optional Razorpay Checkout for online payments
+- Administrator tools for members, trainers, equipment, and reports
+- Docker-based packaging and Render deployment configuration through environment variables
+
+## Technology stack
+
+- Java 21 and Spring Boot
+- Spring MVC, Spring Security, Spring Data JPA, and Thymeleaf
+- MySQL for application data; H2 for automated test configuration
+- Maven, Docker, and Render
+- Razorpay Checkout integration for optional online payments
+
+## Links
+
+- Live demo: [titanfitnessclub.onrender.com](https://titanfitnessclub.onrender.com/)
+- GitHub source: [Rudra-Doke/TitanFitnessClub](https://github.com/Rudra-Doke/TitanFitnessClub)
 
 ## Run locally
 
