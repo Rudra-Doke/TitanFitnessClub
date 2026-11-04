@@ -1082,32 +1082,24 @@ footer {
     animation: lockup-arrive .8s .1s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
-.brand-intro__fist {
-    width: clamp(112px, 17vw, 168px);
+.brand-intro__emblem {
+    position: relative;
+    display: block;
+    width: clamp(180px, 22vw, 250px);
+    aspect-ratio: 1.53;
+    overflow: hidden;
+    filter: drop-shadow(0 12px 20px rgba(212,175,55,.12));
+}
+
+.brand-intro__emblem img {
+    position: absolute;
+    top: -61.1%;
+    left: -69.5%;
+    width: 239%;
+    max-width: none;
     height: auto;
-    overflow: visible;
-    filter: drop-shadow(0 0 20px rgba(212,175,55,.16));
-}
-
-.brand-intro__fist path {
-    fill: transparent;
-    stroke: var(--gold);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-
-.brand-intro__fist .fist-outline {
-    stroke-width: 3;
-    stroke-dasharray: 620;
-    stroke-dashoffset: 620;
-    animation: fist-draw 1.15s .25s cubic-bezier(.65,0,.35,1) forwards, fist-fill .42s 1.28s ease-out forwards;
-}
-
-.brand-intro__fist .fist-detail {
-    stroke-width: 2.5;
-    stroke-dasharray: 180;
-    stroke-dashoffset: 180;
-    animation: fist-draw .65s .85s ease-out forwards;
+    clip-path: inset(100% 0 0);
+    animation: emblem-reveal .95s .2s cubic-bezier(.2,.75,.25,1) forwards;
 }
 
 .brand-intro__wordmark {
@@ -1147,20 +1139,29 @@ footer {
     pointer-events: none;
 }
 
-.brand-fist {
+.brand-fist-window {
     position: absolute;
     top: 0;
-    left: -31px;
-    width: 24px;
-    height: 24px;
-    fill: var(--gold);
+    left: -35px;
+    display: block;
+    width: 29px;
+    aspect-ratio: 1.53;
+    overflow: hidden;
+}
+
+.brand-fist {
+    position: absolute;
+    top: -61.1%;
+    left: -69.5%;
+    width: 239%;
+    max-width: none;
+    height: auto;
+    transition: transform .25s ease;
 }
 
 .brand:hover .brand-fist { transform: translateY(-2px); }
-.brand-fist { transition: transform .25s ease; }
 
-@keyframes fist-draw { to { stroke-dashoffset: 0; } }
-@keyframes fist-fill { to { fill: rgba(212,175,55,.08); } }
+@keyframes emblem-reveal { to { clip-path: inset(0); } }
 @keyframes lockup-arrive { to { transform: translateY(0); } }
 @keyframes wordmark-arrive { to { opacity: 1; transform: translateY(0); } }
 @keyframes rule-arrive { to { width: min(220px, 58vw); } }
