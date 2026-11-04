@@ -6,6 +6,8 @@
 
     <title>Titan Fitness Club | Stronger Every Day</title>
 
+    <script>document.documentElement.classList.add("js");</script>
+
     <link rel="stylesheet" th:href="@{/css/home.css}">
 
     <link rel="stylesheet"
@@ -13,17 +15,29 @@
 </head>
 
 <body>
+<div class="brand-intro" id="brandIntro" aria-hidden="true">
+    <div class="brand-intro__lockup">
+        <svg class="brand-intro__fist" viewBox="0 0 160 160" focusable="false">
+            <path class="fist-outline" d="M47 72V46a11 11 0 0 1 22 0v20-34a11 11 0 0 1 22 0v34-25a11 11 0 0 1 22 0v29-15a11 11 0 0 1 22 0v45c0 27-20 47-47 47H71c-16 0-29-8-37-21L19 104a12 12 0 0 1 20-13l8 10V72Z"/>
+            <path class="fist-detail" d="M69 66v14m22-14v14m22-11v12M47 72v25m22-17c5 9 13 13 22 13s17-4 22-13"/>
+        </svg>
+        <span class="brand-intro__wordmark">TITAN</span>
+        <span class="brand-intro__caption">FITNESS CLUB</span>
+        <span class="brand-intro__rule"></span>
+    </div>
+</div>
 
 <!-- ================= NAVBAR ================= -->
 
 <header class="navbar">
 
     <a href="/" class="brand">
+        <svg class="brand-fist" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><path d="M47 72V46a11 11 0 0 1 22 0v20-34a11 11 0 0 1 22 0v34-25a11 11 0 0 1 22 0v29-15a11 11 0 0 1 22 0v45c0 27-20 47-47 47H71c-16 0-29-8-37-21L19 104a12 12 0 0 1 20-13l8 10V72Z"/></svg>
         <span class="brand-main">TITAN</span>
         <span class="brand-sub">FITNESS CLUB</span>
     </a>
 
-    <nav class="nav-links">
+    <nav class="nav-links" id="primaryNavigation" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -36,7 +50,7 @@
         <a href="/register" class="join-btn">JOIN NOW</a>
     </div>
 
-    <button class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
         <i class="fa-solid fa-bars"></i>
     </button>
 
@@ -463,6 +477,7 @@
         <div class="footer-brand">
 
             <a href="/" class="brand">
+                <svg class="brand-fist" viewBox="0 0 160 160" aria-hidden="true" focusable="false"><path d="M47 72V46a11 11 0 0 1 22 0v20-34a11 11 0 0 1 22 0v34-25a11 11 0 0 1 22 0v29-15a11 11 0 0 1 22 0v45c0 27-20 47-47 47H71c-16 0-29-8-37-21L19 104a12 12 0 0 1 20-13l8 10V72Z"/></svg>
                 <span class="brand-main">TITAN</span>
                 <span class="brand-sub">FITNESS CLUB</span>
             </a>
@@ -540,36 +555,54 @@
     /* ================= MOBILE MENU ================= */
 
     const mobileMenu = document.getElementById("mobileMenu");
-    const navLinks = document.querySelector(".nav-links");
+    const navLinks = document.getElementById("primaryNavigation");
 
     mobileMenu.addEventListener("click", () => {
-        navLinks.classList.toggle("mobile-open");
+        const isOpen = navLinks.classList.toggle("mobile-open");
+        mobileMenu.setAttribute("aria-expanded", String(isOpen));
+        mobileMenu.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            navLinks.classList.remove("mobile-open");
+            mobileMenu.setAttribute("aria-expanded", "false");
+            mobileMenu.setAttribute("aria-label", "Open navigation menu");
+        });
     });
 
 
     /* ================= SCROLL REVEAL ================= */
 
-    const observer = new IntersectionObserver(
-        entries => {
+    const revealItems = document.querySelectorAll(".reveal");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    if (!reduceMotion && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-
                 if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
                 }
-
             });
+        }, { threshold: 0.12 });
 
-        },
-        {
-            threshold: 0.12
-        }
-    );
+        revealItems.forEach(element => observer.observe(element));
+        document.documentElement.classList.add("motion-ready");
+    } else {
+        revealItems.forEach(element => element.classList.add("visible"));
+    }
 
-
-    document.querySelectorAll(".reveal").forEach(element => {
-        observer.observe(element);
-    });
+    const intro = document.getElementById("brandIntro");
+    if (reduceMotion) {
+        intro.remove();
+    } else {
+        window.setTimeout(() => {
+            intro.classList.add("brand-intro--leaving");
+            document.body.classList.add("intro-complete");
+            window.setTimeout(() => intro.remove(), 750);
+        }, 2200);
+    }
 
 
     /* ================= NAVBAR ================= */

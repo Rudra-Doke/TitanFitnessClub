@@ -67,6 +67,7 @@ a {
 }
 
 .brand {
+    position: relative;
     display: flex;
     flex-direction: column;
     line-height: 0.9;
@@ -1026,7 +1027,7 @@ footer {
 
 /* ================= ANIMATIONS ================= */
 
-.reveal {
+.motion-ready .reveal {
     opacity: 0;
 
     transform: translateY(35px);
@@ -1036,9 +1037,142 @@ footer {
             transform 0.8s ease;
 }
 
-.reveal.visible {
+.motion-ready .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* A short brand signature before the existing home page is revealed. */
+.brand-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    place-items: center;
+    overflow: hidden;
+    color: var(--white);
+    background:
+        radial-gradient(ellipse at 50% 45%, rgba(212,175,55,.10), transparent 34%),
+        #080808;
+    transition: opacity .72s cubic-bezier(.76,0,.24,1), transform .72s cubic-bezier(.76,0,.24,1), visibility .72s;
+}
+
+.js .brand-intro { display: grid; }
+
+.brand-intro::before,
+.brand-intro::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    content: "";
+    background: linear-gradient(transparent, rgba(212,175,55,.24), transparent);
+    transform: scaleY(.1);
+    animation: intro-line 1.1s .15s ease-out forwards;
+}
+
+.brand-intro::before { left: 12%; }
+.brand-intro::after { right: 12%; }
+
+.brand-intro__lockup {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transform: translateY(12px);
+    animation: lockup-arrive .8s .1s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.brand-intro__fist {
+    width: clamp(112px, 17vw, 168px);
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 0 20px rgba(212,175,55,.16));
+}
+
+.brand-intro__fist path {
+    fill: transparent;
+    stroke: var(--gold);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.brand-intro__fist .fist-outline {
+    stroke-width: 3;
+    stroke-dasharray: 620;
+    stroke-dashoffset: 620;
+    animation: fist-draw 1.15s .25s cubic-bezier(.65,0,.35,1) forwards, fist-fill .42s 1.28s ease-out forwards;
+}
+
+.brand-intro__fist .fist-detail {
+    stroke-width: 2.5;
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+    animation: fist-draw .65s .85s ease-out forwards;
+}
+
+.brand-intro__wordmark {
+    margin-top: 16px;
+    color: var(--gold);
+    font: 900 clamp(36px, 6vw, 54px)/.9 "Barlow Condensed", sans-serif;
+    letter-spacing: .24em;
+    padding-left: .24em;
+    opacity: 0;
+    transform: translateY(9px);
+    animation: wordmark-arrive .55s 1.15s ease-out forwards;
+}
+
+.brand-intro__caption {
+    margin-top: 10px;
+    color: #aaa;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .46em;
+    padding-left: .46em;
+    opacity: 0;
+    animation: wordmark-arrive .5s 1.38s ease-out forwards;
+}
+
+.brand-intro__rule {
+    width: 0;
+    height: 1px;
+    margin-top: 26px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: rule-arrive .5s 1.45s ease-out forwards;
+}
+
+.brand-intro--leaving {
+    opacity: 0;
+    transform: scale(1.025);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.brand-fist {
+    position: absolute;
+    top: 0;
+    left: -31px;
+    width: 24px;
+    height: 24px;
+    fill: var(--gold);
+}
+
+.brand:hover .brand-fist { transform: translateY(-2px); }
+.brand-fist { transition: transform .25s ease; }
+
+@keyframes fist-draw { to { stroke-dashoffset: 0; } }
+@keyframes fist-fill { to { fill: rgba(212,175,55,.08); } }
+@keyframes lockup-arrive { to { transform: translateY(0); } }
+@keyframes wordmark-arrive { to { opacity: 1; transform: translateY(0); } }
+@keyframes rule-arrive { to { width: min(220px, 58vw); } }
+@keyframes intro-line { to { transform: scaleY(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
 }
 
 
