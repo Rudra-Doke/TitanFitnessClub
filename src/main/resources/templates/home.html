@@ -50,7 +50,7 @@
     </div>
 
     <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primaryNavigation">
-        <i class="fa-solid fa-bars"></i>
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
     </button>
 
 </header>
@@ -103,28 +103,28 @@
 </section>
 
 
-<!-- ================= STATS ================= -->
+<!-- ================= MEMBER EXPERIENCE ================= -->
 
-<section class="stats">
+<section class="stats" aria-label="Membership features">
 
     <div class="stat reveal">
-        <strong>500+</strong>
-        <span>ACTIVE MEMBERS</span>
+        <strong>MEMBERSHIP</strong>
+        <span>Plan options in one place</span>
     </div>
 
     <div class="stat reveal">
-        <strong>15+</strong>
-        <span>EXPERT TRAINERS</span>
+        <strong>ATTENDANCE</strong>
+        <span>Keep track of your visits</span>
     </div>
 
     <div class="stat reveal">
-        <strong>10+</strong>
-        <span>YEARS OF EXPERIENCE</span>
+        <strong>TRAINING PLANS</strong>
+        <span>Workout and diet guidance</span>
     </div>
 
     <div class="stat reveal">
-        <strong>24/7</strong>
-        <span>FITNESS MINDSET</span>
+        <strong>MEMBER PORTAL</strong>
+        <span>Payments and club updates</span>
     </div>
 
 </section>
@@ -151,8 +151,8 @@
             </div>
 
             <div class="experience-badge">
-                <strong>10+</strong>
-                <span>YEARS OF<br>EXCELLENCE</span>
+                <strong>YOUR</strong>
+                <span>PLAN.<br>YOUR PACE.</span>
             </div>
 
         </div>
@@ -229,7 +229,7 @@
             </p>
 
             <a href="/register">
-                LEARN MORE
+                JOIN TITAN
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
@@ -250,7 +250,7 @@
             </p>
 
             <a href="/register">
-                LEARN MORE
+                JOIN TITAN
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
@@ -271,7 +271,7 @@
             </p>
 
             <a href="/register">
-                LEARN MORE
+                JOIN TITAN
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
@@ -292,7 +292,7 @@
             </p>
 
             <a href="/register">
-                LEARN MORE
+                JOIN TITAN
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
 
@@ -356,84 +356,32 @@
     </div>
 
 
-    <div class="plans">
+    <div class="plans" th:if="${!#lists.isEmpty(plans)}">
+        <article class="plan-card reveal" th:each="plan : ${plans}">
+            <span class="plan-name" th:text="${plan.planName}">MEMBERSHIP</span>
 
-        <div class="plan-card reveal">
-
-            <span class="plan-name">BASIC</span>
-
-            <div class="price">
-                <small>₹</small>999
-                <span>/ MONTH</span>
+            <div class="price" th:if="${plan.price != null}">
+                <small>₹</small><span class="price-amount" th:text="${#numbers.formatDecimal(plan.price, 1, 'COMMA', 0, 'POINT')}">0</span>
+                <span class="price-label">PLAN PRICE</span>
+            </div>
+            <div class="price price-contact" th:if="${plan.price == null}">
+                <span class="price-amount">ASK US</span>
             </div>
 
             <div class="plan-line"></div>
 
-            <ul>
-                <li><i class="fa-solid fa-check"></i> Gym Access</li>
-                <li><i class="fa-solid fa-check"></i> Basic Equipment</li>
-                <li><i class="fa-solid fa-check"></i> Locker Access</li>
-                <li><i class="fa-solid fa-xmark"></i> Personal Training</li>
-            </ul>
+            <p class="plan-description" th:if="${!#strings.isEmpty(plan.description)}" th:text="${plan.description}">Plan details</p>
+            <p class="plan-description" th:if="${#strings.isEmpty(plan.description)}">Talk with the club about what this plan includes.</p>
 
-            <a href="/register" class="plan-btn">
-                CHOOSE BASIC
-            </a>
+            <p class="plan-duration" th:if="${plan.durationMonths != null}" th:text="|${plan.durationMonths} month membership|">Membership duration</p>
 
-        </div>
+            <a th:href="@{/register}" class="plan-btn">JOIN THIS PLAN</a>
+        </article>
+    </div>
 
-
-        <div class="plan-card popular reveal">
-
-            <div class="popular-tag">MOST POPULAR</div>
-
-            <span class="plan-name">GOLD</span>
-
-            <div class="price">
-                <small>₹</small>1499
-                <span>/ MONTH</span>
-            </div>
-
-            <div class="plan-line"></div>
-
-            <ul>
-                <li><i class="fa-solid fa-check"></i> Full Gym Access</li>
-                <li><i class="fa-solid fa-check"></i> Workout Plan</li>
-                <li><i class="fa-solid fa-check"></i> Diet Guidance</li>
-                <li><i class="fa-solid fa-check"></i> Progress Tracking</li>
-            </ul>
-
-            <a href="/register" class="plan-btn gold">
-                CHOOSE GOLD
-            </a>
-
-        </div>
-
-
-        <div class="plan-card reveal">
-
-            <span class="plan-name">ELITE</span>
-
-            <div class="price">
-                <small>₹</small>2499
-                <span>/ MONTH</span>
-            </div>
-
-            <div class="plan-line"></div>
-
-            <ul>
-                <li><i class="fa-solid fa-check"></i> Everything in Gold</li>
-                <li><i class="fa-solid fa-check"></i> Personal Training</li>
-                <li><i class="fa-solid fa-check"></i> Custom Diet Plan</li>
-                <li><i class="fa-solid fa-check"></i> Priority Support</li>
-            </ul>
-
-            <a href="/register" class="plan-btn">
-                CHOOSE ELITE
-            </a>
-
-        </div>
-
+    <div class="plans-empty" th:if="${#lists.isEmpty(plans)}" role="status">
+        <p>Membership options are being updated.</p>
+        <a href="#contact" class="text-btn">CONTACT THE CLUB <i class="fa-solid fa-arrow-right"></i></a>
     </div>
 
 </section>
@@ -558,6 +506,7 @@
 
     mobileMenu.addEventListener("click", () => {
         const isOpen = navLinks.classList.toggle("mobile-open");
+        mobileMenu.querySelector("i").className = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
         mobileMenu.setAttribute("aria-expanded", String(isOpen));
         mobileMenu.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
     });
@@ -565,6 +514,7 @@
     navLinks.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => {
             navLinks.classList.remove("mobile-open");
+            mobileMenu.querySelector("i").className = "fa-solid fa-bars";
             mobileMenu.setAttribute("aria-expanded", "false");
             mobileMenu.setAttribute("aria-label", "Open navigation menu");
         });

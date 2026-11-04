@@ -361,8 +361,9 @@ a {
 
     color: var(--gold);
 
-    font-size: 42px;
+    font-size: clamp(17px, 2vw, 26px);
     font-weight: 800;
+    letter-spacing: 0.04em;
 }
 
 .stat span {
@@ -372,15 +373,16 @@ a {
 
     color: #aaa;
 
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 
 /* ================= GLOBAL SECTION ================= */
 
 .section {
+    scroll-margin-top: 90px;
     padding: 120px 8%;
 }
 
@@ -735,7 +737,7 @@ a {
 .plans {
     display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
 
     gap: 20px;
 
@@ -746,6 +748,9 @@ a {
 
 .plan-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
 
     padding: 42px 35px;
 
@@ -759,28 +764,6 @@ a {
 .plan-card:hover {
     transform: translateY(-8px);
     border-color: var(--gold);
-}
-
-.plan-card.popular {
-    border-color: var(--gold);
-
-    box-shadow: 0 0 50px rgba(212,175,55,0.08);
-}
-
-.popular-tag {
-    position: absolute;
-
-    top: 0;
-    right: 0;
-
-    padding: 8px 15px;
-
-    background: var(--gold);
-    color: black;
-
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: 1px;
 }
 
 .plan-name {
@@ -807,13 +790,39 @@ a {
     font-size: 28px;
 }
 
-.price span {
-    color: #777;
+.price-amount {
+    display: inline-block;
+    margin-left: 6px;
+    color: #f4f1e8;
+    font-family: "Barlow Condensed", sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    line-height: 1;
+}
 
+.price-label {
+    display: block;
+    margin: 7px 0 0;
     font-family: "Inter", sans-serif;
-
     font-size: 9px;
-    font-weight: 600;
+    letter-spacing: 1.5px;
+}
+
+.price-contact .price-amount {
+    margin-left: 0;
+    color: var(--gold);
+    font-size: 28px;
+}
+
+.plan-description {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.plan-duration {
+    margin-top: 14px;
+    color: #777;
+    font-size: 11px;
 }
 
 .plan-line {
@@ -845,8 +854,7 @@ a {
 .plan-btn {
     display: block;
 
-    margin-top: 30px;
-
+    margin-top: auto;
     padding: 14px;
 
     border: 1px solid var(--gold);
@@ -860,6 +868,27 @@ a {
     letter-spacing: 1.5px;
 
     transition: 0.25s ease;
+}
+
+.plans-empty {
+    max-width: 620px;
+    margin: 65px auto 0;
+    padding: 32px;
+    border: 1px solid #272727;
+    background: #111;
+    color: #aaa;
+    text-align: center;
+}
+
+.plans-empty p {
+    margin-bottom: 18px;
+}
+
+.plans-empty .text-btn {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .plan-btn:hover,
